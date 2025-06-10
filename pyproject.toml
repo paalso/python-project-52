@@ -1,0 +1,13 @@
+[project]
+name = "hexlet-code"
+version = "0.1.0"
+description = "Task manager"
+authors = ["paalso <40a.pvl@gmail.com>", "paalso <paalso@gmail.com>"]
+packages = [
+    {include = "task_manager"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=5.2.3",
+]
