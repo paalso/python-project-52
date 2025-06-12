@@ -56,7 +56,11 @@ test:  ## Run tests using pytest
 	@uv run pytest
 
 lint:  ## Check code style using ruff
-	@uv run ruff check python_django_orm_blog
+	@uv run ruff check task_manager
 
 lint-fix:  ## Auto-fix linting issues using ruff
-	@uv run ruff check --fix python_django_orm_blog
+	@uv run ruff check --fix task_manager
+
+check:  ## Run lint and tests
+	@$(MAKE) lint
+	@$(MAKE) test
