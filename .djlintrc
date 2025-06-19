@@ -1,2 +1,5 @@
-# .djlintrc
-indent=2
+{
+  "indent": 2,
+  "format_css": true,
+  "format_js": true
+}
