@@ -1,10 +1,13 @@
 <!--task_manager/templates/base.html-->
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+<html lang="{% get_current_language as language %}">
   <head>
     <meta charset="utf-8">
     <title>
-      {% block title %}Менеджер задач{% endblock %}
+      {% block title %}
+        {% trans "Task manager" %}
+      {% endblock %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- TODO: Add description! -->

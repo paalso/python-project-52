@@ -55,6 +55,12 @@ shell:  ## Launch Django shell_plus with IPython
 test:  ## Run tests using pytest
 	@uv run pytest
 
+makemessages:  ## Extract translations for ru and ua
+	uv run sh -c 'django-admin makemessages -l ru && django-admin makemessages -l ua'
+
+compilemessages:  ## Compile translation files (.po -> .mo)
+	uv run django-admin compilemessages
+
 lint:  ## Check code style using ruff
 	@uv run ruff check task_manager
 
