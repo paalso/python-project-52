@@ -17,6 +17,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['webserver', 'localhost', '127.0.0.1']
 
+# User model
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Application definition
 
