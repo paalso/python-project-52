@@ -1,0 +1,29 @@
+<!--task_manager/templates/index.html-->
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="my-4">Users</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Full name</th>
+          <th>Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.created_at }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
