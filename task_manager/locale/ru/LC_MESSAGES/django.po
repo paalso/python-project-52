@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-20 16:10+0300\n"
+"POT-Creation-Date: 2025-06-26 13:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,11 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: task_manager/templates/base.html:9
+#: task_manager/templates/partials/navbar.html:5
+msgid "Task manager"
+msgstr "Менеджер задач"
+
 #: task_manager/templates/index.html:8
 msgid "Hello from Hexlet"
 msgstr "Привет от Хекслета"
@@ -30,20 +35,21 @@ msgstr "Практические курсы по программировани�
 
 #: task_manager/templates/index.html:12
 msgid "Learn more"
-msgstr ""
+msgstr "Узнать больше"
 
-#: task_manager/templates/partials/navbar.html:5
-msgid "Task manager"
-msgstr "Менеджер задач"
-
-#: task_manager/templates/partials/navbar.html:18
+#: task_manager/templates/partials/navbar.html:17
 msgid "Users"
 msgstr "Пользователи"
 
-#: task_manager/templates/partials/navbar.html:21
+#: task_manager/templates/partials/navbar.html:20
 msgid "Log in"
 msgstr "Вход"
 
-#: task_manager/templates/partials/navbar.html:24
+#: task_manager/templates/partials/navbar.html:23
+#: task_manager/templates/partials/navbar.html:26
 msgid "Sign up"
 msgstr "Регистрация"
+
+#: task_manager/templates/partials/navbar.html:30
+msgid "Admin panel"
+msgstr ""
