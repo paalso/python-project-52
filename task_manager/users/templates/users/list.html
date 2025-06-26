@@ -4,6 +4,8 @@
 {% block content %}
   <div class="container mt-5">
     <h1 class="my-4">Users</h1>
+<!--    TODO: Add bootstrap utilities to control table columns width:-->
+<!--    w-10, w-20 or smth-->
     <table class="table table-striped">
       <thead>
         <tr>
@@ -21,6 +23,11 @@
           <td>{{ user.username }}</td>
           <td>{{ user.full_name }}</td>
           <td>{{ user.date_joined|date:"d.m.Y h:m" }}</td>
+          <td>
+            <a href="{% url 'users:update' user.id %}">Edit</a>
+          <br>
+            <a href="{% url 'users:delete' user.id %}">Delete</a>
+        </td>
         </tr>
       {% endfor %}
       </tbody>
