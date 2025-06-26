@@ -19,8 +19,8 @@
         <tr>
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.created_at }}</td>
+          <td>{{ user.full_name }}</td>
+          <td>{{ user.date_joined|date:"d.m.Y h:m" }}</td>
         </tr>
       {% endfor %}
       </tbody>

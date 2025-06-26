@@ -1,11 +1,11 @@
 from django.contrib.auth.models import AbstractUser
-from django.db import models
 
 
 class CustomUser(AbstractUser):
     @property
     def full_name(self):
-        return f'{self.first_name} {self.last_name}'
+        fn = f"{self.first_name} {self.last_name}".strip()
+        return fn if fn else self.username
 
     # TODO: Check if it's needed
     def get_full_name(self):

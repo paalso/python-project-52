@@ -1,8 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import render
 from django.views import View
 
 from task_manager.users.models import CustomUser
+
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
