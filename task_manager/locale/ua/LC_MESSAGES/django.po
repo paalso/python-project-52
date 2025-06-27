@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 13:48+0300\n"
+"POT-Creation-Date: 2025-06-27 12:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,7 @@ msgid "Learn more"
 msgstr "Узнать больше"
 
 #: task_manager/templates/partials/navbar.html:17
+#: task_manager/users/templates/users/list.html:6
 msgid "Users"
 msgstr "Пользователи"
 
@@ -43,10 +44,31 @@ msgid "Log in"
 msgstr "Вход"
 
 #: task_manager/templates/partials/navbar.html:23
-#: task_manager/templates/partials/navbar.html:26
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: task_manager/templates/partials/navbar.html:30
+#: task_manager/templates/partials/navbar.html:27
 msgid "Admin panel"
+msgstr ""
+
+#: task_manager/users/templates/users/list.html:13
+#, fuzzy
+#| msgid "Users"
+msgid "Username"
+msgstr "Пользователи"
+
+#: task_manager/users/templates/users/list.html:14
+msgid "Full name"
+msgstr ""
+
+#: task_manager/users/templates/users/list.html:15
+msgid "Created"
+msgstr ""
+
+#: task_manager/users/templates/users/list.html:27
+msgid "Edit"
+msgstr ""
+
+#: task_manager/users/templates/users/list.html:29
+msgid "Delete"
 msgstr ""
