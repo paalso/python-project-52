@@ -1,0 +1,16 @@
+<!--task_manager/templates/index.html-->
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">{% trans "Sign up"%}</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+  </form>
+  </div>
+{% endblock %}
+{% block footer %}
+  {% include "partials/footer.html" %}
+{% endblock %}
