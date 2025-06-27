@@ -46,7 +46,6 @@ msgid "Log in"
 msgstr "Вход"
 
 #: task_manager/templates/partials/navbar.html:23
-#: task_manager/templates/partials/navbar.html:26
 msgid "Sign up"
 msgstr "Регистрация"
 
