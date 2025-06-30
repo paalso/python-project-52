@@ -1,9 +1,38 @@
-from django.forms import ModelForm
+# task_manager/users/forms.py
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import gettext_lazy as _
 
 from .models import CustomUser
 
 
-class CustomUserCreationForm(ModelForm):
+class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'username', 'password')
+        fields = ('first_name', 'last_name', 'username')
+
+        labels = {
+            'first_name': _('First name'),
+            'last_name':  _('Last name'),
+            'username':   _('Username'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Delete all the password field validators
+        self.fields['password1'].validators.clear()
+
+        # Update the password field help_text
+        self.fields['password1'].help_text = _(
+            'Your password must contain at least 3 characters.')
+        self.fields['password2'].help_text = _(
+            'Enter the same password again for verification.')
+
+    def clean_password1(self):
+        password = self.cleaned_data.get('password1')
+        if len(password) < 3:
+            raise forms.ValidationError(
+                _('Your password is too short. '
+                  'Password must be at least 3 characters.'))
+        return password
