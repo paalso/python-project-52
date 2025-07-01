@@ -16,16 +16,36 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'users:index' %}">{% trans "Users" %}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">{% trans "Log in" %}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
-        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">{% trans "Statuses" %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">{% trans "Tags" %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">{% trans "Tasks" %}</a>
+          </li>
+          <li class="nav-item">
+            <form method="post" action="{% url 'users:logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link nav-link">Logout</button>
+            </form>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">{% trans "Log in" %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
+          </li>
+        {% endif %}
       </ul>
-      <div class="d-flex">
-        <a class="nav-link" href="/admin/">{% trans "Admin panel" %}</a>
-      </div>
+      {% if user.is_authenticated %}
+        <div class="d-flex">
+          <a class="nav-link" href="/admin/">{% trans "Admin panel" %}</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </nav>

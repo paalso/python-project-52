@@ -1,4 +1,6 @@
 # task_manager/users/views.py
+from django.contrib import messages
+from django.contrib.auth.views import LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
@@ -23,6 +25,14 @@ class UserRegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/register.html'
     success_url = reverse_lazy('index')
+
+
+class UserLogoutView(LogoutView):
+    next_page = 'index'
+
+    def post(self, request, *args, **kwargs):
+        messages.success(request, "Вы успешно вышли из системы.")
+        return super().post(request, *args, **kwargs)
 
 
 class UserUpdateView(View):

@@ -8,6 +8,7 @@ app_name = 'users'
 urlpatterns = [
     path('', views.UserListView.as_view(), name='index'),
     path('register/', views.UserRegisterView.as_view(), name='register'),
+    path('logout/', views.UserLogoutView.as_view(), name='logout'),
     path('<int:pk>/update/', views.UserUpdateView.as_view(), name='update'),
     path('<int:pk>/delete/', views.UserDeleteView.as_view(), name='delete'),
 ]
