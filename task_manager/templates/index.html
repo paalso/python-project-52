@@ -2,15 +2,13 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-  <div class="container mt-5">
-    <div class="card">
-      <div class="card-body p-5 bg-light">
-        <h1 class="display-4">{% trans "Hello from Hexlet" %}!</h1>
-        <p class="lead">{% trans "Practical programming courses" %}</p>
-        <hr>
-        <!-- TODO: Убрать эту ссылку и вообще поменять содержимое-->
-        <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% trans "Learn more" %}</a>
-      </div>
+  <div class="card mt-3">
+    <div class="card-body p-5 bg-light">
+      <h1 class="display-4">{% trans "Hello from Hexlet" %}!</h1>
+      <p class="lead">{% trans "Practical programming courses" %}</p>
+      <hr>
+      <!-- TODO: Убрать эту ссылку и вообще поменять содержимое-->
+      <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% trans "Learn more" %}</a>
     </div>
   </div>
 {% endblock %}

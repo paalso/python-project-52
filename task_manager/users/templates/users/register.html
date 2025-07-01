@@ -2,7 +2,6 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-  <div class="container">
     <h1 class="my-4">{% trans "Sign up"%}</h1>
       {% load crispy_forms_tags %}
       <form method="post">
@@ -10,7 +9,6 @@
         {{ form|crispy }}
         <button type="submit" class="btn btn-primary">{% trans "Register"%}</button>
       </form>
-  </div>
 {% endblock %}
 {% block footer %}
   {% include "partials/footer.html" %}

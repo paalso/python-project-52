@@ -2,7 +2,6 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-  <div class="container">
     <h1 class="my-4">{% trans "Users"%}</h1>
 <!--    TODO: Add bootstrap utilities to control table columns width:-->
 <!--    w-10, w-20 or smth-->
@@ -32,5 +31,4 @@
       {% endfor %}
       </tbody>
     </table>
-  </div>
 {% endblock %}
