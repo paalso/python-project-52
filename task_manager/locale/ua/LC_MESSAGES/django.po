@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 16:04+0300\n"
+"POT-Creation-Date: 2025-07-01 18:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,73 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: task_manager/forms.py:8 task_manager/forms.py:11
+#: task_manager/users/forms.py:17
+#: task_manager/users/templates/users/list.html:12
+#, fuzzy
+#| msgid "Users"
+msgid "Username"
+msgstr "Пользователи"
+
+#: task_manager/forms.py:15 task_manager/forms.py:18
+msgid "Password"
+msgstr ""
+
 #: task_manager/templates/base.html:9
 #: task_manager/templates/partials/navbar.html:5
 msgid "Task manager"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/index.html:8
+#: task_manager/templates/index.html:7
 msgid "Hello from Hexlet"
 msgstr "Привет от Хекслета"
 
-#: task_manager/templates/index.html:9
+#: task_manager/templates/index.html:8
 msgid "Practical programming courses"
 msgstr "Практические курсы по программированию"
 
-#: task_manager/templates/index.html:12
+#: task_manager/templates/index.html:11
 msgid "Learn more"
 msgstr "Узнать больше"
 
-#: task_manager/templates/partials/navbar.html:17
-#: task_manager/users/templates/users/list.html:6
-msgid "Users"
-msgstr "Пользователи"
+#: task_manager/templates/login.html:5
+#, fuzzy
+#| msgid "Sign up"
+msgid "Sign in"
+msgstr "Регистрация"
 
-#: task_manager/templates/partials/navbar.html:20
+#: task_manager/templates/login.html:10
+#: task_manager/templates/partials/navbar.html:37
 msgid "Log in"
 msgstr "Вход"
 
-#: task_manager/templates/partials/navbar.html:23
-#: task_manager/users/templates/users/register.html:6
+#: task_manager/templates/partials/navbar.html:17
+#: task_manager/users/templates/users/list.html:5
+msgid "Users"
+msgstr "Пользователи"
+
+#: task_manager/templates/partials/navbar.html:21
+msgid "Statuses"
+msgstr ""
+
+#: task_manager/templates/partials/navbar.html:24
+msgid "Labels"
+msgstr ""
+
+#: task_manager/templates/partials/navbar.html:27
+msgid "Tasks"
+msgstr ""
+
+#: task_manager/templates/partials/navbar.html:32
+msgid "Logout"
+msgstr ""
+
+#: task_manager/templates/partials/navbar.html:40
+#: task_manager/users/templates/users/register.html:5
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: task_manager/templates/partials/navbar.html:27
+#: task_manager/templates/partials/navbar.html:46
 msgid "Admin panel"
 msgstr ""
 
@@ -59,13 +94,6 @@ msgstr ""
 #: task_manager/users/forms.py:16
 msgid "Last name"
 msgstr ""
-
-#: task_manager/users/forms.py:17
-#: task_manager/users/templates/users/list.html:13
-#, fuzzy
-#| msgid "Users"
-msgid "Username"
-msgstr "Пользователи"
 
 #: task_manager/users/forms.py:28
 msgid "Your password must contain at least 3 characters."
@@ -79,22 +107,30 @@ msgstr ""
 msgid "Your password is too short. Password must be at least 3 characters."
 msgstr ""
 
-#: task_manager/users/templates/users/list.html:14
+#: task_manager/users/templates/users/list.html:13
 msgid "Full name"
 msgstr ""
 
-#: task_manager/users/templates/users/list.html:15
+#: task_manager/users/templates/users/list.html:14
 msgid "Created"
 msgstr ""
 
-#: task_manager/users/templates/users/list.html:27
+#: task_manager/users/templates/users/list.html:26
 msgid "Edit"
 msgstr ""
 
-#: task_manager/users/templates/users/list.html:29
+#: task_manager/users/templates/users/list.html:28
 msgid "Delete"
 msgstr ""
 
-#: task_manager/users/templates/users/register.html:11
+#: task_manager/users/templates/users/register.html:10
 msgid "Register"
+msgstr ""
+
+#: task_manager/users/views.py:34
+msgid "You have successfully logged out of the system."
+msgstr ""
+
+#: task_manager/views.py:26
+msgid "You are logged in."
 msgstr ""

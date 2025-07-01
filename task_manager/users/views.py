@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.views import LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView
 
@@ -28,18 +29,14 @@ class UserRegisterView(CreateView):
 
 
 class UserLogoutView(LogoutView):
-    next_page = 'index'
-
     def post(self, request, *args, **kwargs):
-        messages.success(request, "Вы успешно вышли из системы.")
+        messages.info(request,
+                      _('You have successfully logged out of the system.'))
         return super().post(request, *args, **kwargs)
 
 
 class UserUpdateView(View):
     def get(self, request, *args, **kwargs):
-        user_id = kwargs.get('pk')
-        user = CustomUser.objects.get(id=user_id)
-        # form = UserForm(instance=user)
         return render(
             request, 'users/update.html'
         )
@@ -47,9 +44,6 @@ class UserUpdateView(View):
 
 class UserDeleteView(View):
     def get(self, request, *args, **kwargs):
-        user_id = kwargs.get('pk')
-        user = CustomUser.objects.get(id=user_id)
-        # form = UserForm(instance=user)
         return render(
             request, 'users/delete.html'
         )
