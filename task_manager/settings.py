@@ -20,6 +20,8 @@ ALLOWED_HOSTS = ['webserver', 'localhost', '127.0.0.1']
 # User model
 AUTH_USER_MODEL = 'users.CustomUser'
 
+LOGIN_REDIRECT_URL = '/'
+
 # Application definition
 
 INSTALLED_APPS = [

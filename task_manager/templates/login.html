@@ -1,0 +1,17 @@
+<!--task_manager/templates/login.html-->
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">{% trans "Sign in" %}</h1>
+    {% load crispy_forms_tags %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
+    </form>
+  </div>
+{% endblock %}
+{% block footer %}
+  {% include "partials/footer.html" %}
+{% endblock %}

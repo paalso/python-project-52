@@ -34,7 +34,7 @@
           </li>
         {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="#">{% trans "Log in" %}</a>
+            <a class="nav-link" href="{% url 'login' %}">{% trans "Log in" %}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
