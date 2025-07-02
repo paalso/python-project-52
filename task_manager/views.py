@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         user = request.user
-        logger.info(f'User: {user}, authenticated: {user.is_authenticated}')
+        logger.debug(f'👁 Index page viewed by {user}')
         return render(request, 'index.html')
 
 
@@ -23,5 +23,9 @@ class LoginUserView(LoginView):
     authentication_form = LoginForm
 
     def form_valid(self, form):
+        response = super().form_valid(form)
+        user = self.request.user
+        ip = self.request.META.get('REMOTE_ADDR', 'unknown')
         messages.success(self.request, _('You are logged in.'))
-        return super().form_valid(form)
+        logger.info(f'🔐 {user} successfully logged in from IP={ip}')
+        return response
