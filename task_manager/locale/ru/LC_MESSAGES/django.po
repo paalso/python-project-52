@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-01 18:19+0300\n"
+"POT-Creation-Date: 2025-07-02 19:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgid "Sign in"
 msgstr "Войти"
 
 #: task_manager/templates/login.html:10
-#: task_manager/templates/partials/navbar.html:37
+#: task_manager/templates/partials/navbar.html:40
 msgid "Log in"
 msgstr "Вход"
 
@@ -75,16 +75,16 @@ msgstr "Метки"
 msgid "Tasks"
 msgstr "Задачи"
 
-#: task_manager/templates/partials/navbar.html:32
+#: task_manager/templates/partials/navbar.html:35
 msgid "Logout"
 msgstr "Выход"
 
-#: task_manager/templates/partials/navbar.html:40
-#: task_manager/users/templates/users/register.html:5
+#: task_manager/templates/partials/navbar.html:43
+#: task_manager/users/templates/users/register.html:6
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: task_manager/templates/partials/navbar.html:46
+#: task_manager/templates/partials/navbar.html:49
 msgid "Admin panel"
 msgstr ""
 
@@ -109,6 +109,16 @@ msgid "Your password is too short. Password must be at least 3 characters."
 msgstr ""
 "Введённый пароль слишком короткий. Он должен содержать как минимум 3 символа."
 
+#: task_manager/users/forms.py:49
+msgid "A user with this username already exists."
+msgstr "Пользователь с таким именем уже существует."
+
+#: task_manager/users/templates/users/delete.html:5
+#, fuzzy
+#| msgid "Delete"
+msgid "Delete user"
+msgstr "Удалить"
+
 #: task_manager/users/templates/users/list.html:13
 msgid "Full name"
 msgstr "Полное имя"
@@ -125,14 +135,33 @@ msgstr "Изменить"
 msgid "Delete"
 msgstr "Удалить"
 
-#: task_manager/users/templates/users/register.html:10
-msgid "Register"
-msgstr "Зарегистрировать"
+#: task_manager/users/templates/users/update.html:6
+msgid "Edit user"
+msgstr "Изменить"
 
-#: task_manager/users/views.py:34
-msgid "You have successfully logged out of the system."
+#: task_manager/users/views.py:35
+msgid "The user successfully registered"
+msgstr "Пользователь успешно зарегистрирован"
+
+#: task_manager/users/views.py:48
+msgid "You have successfully logged out of the system"
 msgstr "Вы разлогинены"
 
-#: task_manager/views.py:26
+#: task_manager/users/views.py:61
+msgid "You are not authorized! Please log in."
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
+
+#: task_manager/users/views.py:66
+msgid "You do not have permission to edit another user."
+msgstr "У вас нет прав для изменения другого пользователя."
+
+#: task_manager/users/views.py:77
+msgid "The user successfully updated"
+msgstr "Пользователь успешно изменен"
+
+#: task_manager/views.py:29
 msgid "You are logged in."
 msgstr "Вы залогинены"
+
+#~ msgid "Register"
+#~ msgstr "Зарегистрировать"

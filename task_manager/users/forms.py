@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import CustomUser
 
 
-class CustomUserCreationForm(UserCreationForm):
+class CustomUserForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ('first_name', 'last_name', 'username')
@@ -36,3 +36,15 @@ class CustomUserCreationForm(UserCreationForm):
                 _('Your password is too short. '
                   'Password must be at least 3 characters.'))
         return password
+
+
+class CustomUserUpdateForm(CustomUserForm):
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        qs = CustomUser.objects.filter(username=username)
+        if self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
+        if qs.exists():
+            raise forms.ValidationError(
+                _('A user with this username already exists.'))
+        return username

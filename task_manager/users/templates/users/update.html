@@ -1,6 +1,12 @@
 <!--task_manager/templates/update.html-->
 {% extends "base.html" %}
 {% load i18n %}
+
 {% block content %}
-    <h1 class="my-4">Here user updating must be implemented</h1>
+  <h1 class="my-4">{% trans "Edit user" %}</h1>
+  {% include "users/partials/form.html" with button_text="Update" %}
+{% endblock %}
+
+{% block footer %}
+  {% include "partials/footer.html" %}
 {% endblock %}

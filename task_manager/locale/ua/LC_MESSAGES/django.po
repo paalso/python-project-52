@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-01 18:14+0300\n"
+"POT-Creation-Date: 2025-07-02 19:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,7 +53,7 @@ msgid "Sign in"
 msgstr "Регистрация"
 
 #: task_manager/templates/login.html:10
-#: task_manager/templates/partials/navbar.html:37
+#: task_manager/templates/partials/navbar.html:40
 msgid "Log in"
 msgstr "Вход"
 
@@ -74,16 +74,16 @@ msgstr ""
 msgid "Tasks"
 msgstr ""
 
-#: task_manager/templates/partials/navbar.html:32
+#: task_manager/templates/partials/navbar.html:35
 msgid "Logout"
 msgstr ""
 
-#: task_manager/templates/partials/navbar.html:40
-#: task_manager/users/templates/users/register.html:5
+#: task_manager/templates/partials/navbar.html:43
+#: task_manager/users/templates/users/register.html:6
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: task_manager/templates/partials/navbar.html:46
+#: task_manager/templates/partials/navbar.html:49
 msgid "Admin panel"
 msgstr ""
 
@@ -107,6 +107,14 @@ msgstr ""
 msgid "Your password is too short. Password must be at least 3 characters."
 msgstr ""
 
+#: task_manager/users/forms.py:49
+msgid "A user with this username already exists."
+msgstr ""
+
+#: task_manager/users/templates/users/delete.html:5
+msgid "Delete user"
+msgstr ""
+
 #: task_manager/users/templates/users/list.html:13
 msgid "Full name"
 msgstr ""
@@ -123,14 +131,30 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: task_manager/users/templates/users/register.html:10
-msgid "Register"
+#: task_manager/users/templates/users/update.html:6
+msgid "Edit user"
 msgstr ""
 
-#: task_manager/users/views.py:34
-msgid "You have successfully logged out of the system."
+#: task_manager/users/views.py:35
+msgid "The user successfully registered"
 msgstr ""
 
-#: task_manager/views.py:26
+#: task_manager/users/views.py:48
+msgid "You have successfully logged out of the system"
+msgstr ""
+
+#: task_manager/users/views.py:61
+msgid "You are not authenticated! Please log in."
+msgstr ""
+
+#: task_manager/users/views.py:66
+msgid "You do not have permission to edit another user."
+msgstr ""
+
+#: task_manager/users/views.py:77
+msgid "The user successfully updated"
+msgstr ""
+
+#: task_manager/views.py:29
 msgid "You are logged in."
 msgstr ""

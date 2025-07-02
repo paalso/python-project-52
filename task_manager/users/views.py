@@ -3,13 +3,13 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.views import LogoutView
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserForm, CustomUserUpdateForm
 from .models import CustomUser
 
 logger = logging.getLogger(__name__)
@@ -23,15 +23,19 @@ class UserListView(View):
 
 
 class UserRegisterView(CreateView):
-    form_class = CustomUserCreationForm
+    form_class = CustomUserForm
     template_name = 'users/register.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('login')
 
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.instance
+        messages.success(
+            self.request,
+            _('The user successfully registered')
+        )
         logger.info(
-            f'🆕👤 New user registered: username={user.username}, id={user.id}')
+            f'🆕👤 New user registered: {user}')
         return response
 
 
@@ -41,16 +45,40 @@ class UserLogoutView(LogoutView):
         ip = request.META.get('REMOTE_ADDR', 'unknown')
         logger.info(f'🚪 {user} logged out from IP={ip}')
         messages.info(
-            request, _('You have successfully logged out of the system.'))
+            request, _('You have successfully logged out of the system'))
         return super().post(request, *args, **kwargs)
 
 
-class UserUpdateView(View):
-    def get(self, request, *args, **kwargs):
+class UserUpdateView(UpdateView):
+    model = CustomUser
+    form_class = CustomUserUpdateForm
+    template_name = 'users/update.html'
+    success_url = reverse_lazy('users:list')
 
-        return render(
-            request, 'users/update.html'
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(
+                request, _('You are not authorized! Please log in.'))
+            return redirect('login')
+
+        if request.user.pk != kwargs['pk']:
+            messages.error(
+                request, _('You do not have permission to edit another user.'))
+            return redirect('users:list')
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = form.instance
+        ip = self.request.META.get('REMOTE_ADDR', 'unknown')
+        messages.success(
+            self.request,
+            _('The user successfully updated')
         )
+        logger.info(
+            f'✅ The user {user} was successfully updated from ip {ip}')
+        return response
 
 
 class UserDeleteView(View):
