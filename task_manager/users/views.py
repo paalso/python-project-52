@@ -82,7 +82,34 @@ class UserUpdateView(UpdateView):
 
 
 class UserDeleteView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, pk):
+        user = request.user
+        logger.debug(f'ℹ️ Current user: {user}')
+
+        if not request.user.is_authenticated:
+            messages.error(
+                request, _('You are not authorized! Please log in.'))
+            return redirect('login')
+
+        if user.pk != pk:
+            messages.error(
+                request, _('You do not have permission to edit another user.'))
+            return redirect('users:list')
+
+        logger.debug(f'ℹ️ request: {request}')
         return render(
             request, 'users/delete.html'
         )
+
+    def post(self, request, pk):
+        deletion_confirm = request.POST.get('confirm') == 'true'
+        user = CustomUser.objects.get(pk=pk)
+        if deletion_confirm and user:
+            ip = self.request.META.get('REMOTE_ADDR', 'unknown')
+            user.delete()
+            messages.success(
+                self.request,
+                _('The user successfully deleted')
+            )
+            logger.debug(f'🗑️ {user} successfully deleted from ip {ip}')
+        return redirect('users:list')

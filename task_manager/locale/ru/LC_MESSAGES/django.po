@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-02 19:49+0300\n"
+"POT-Creation-Date: 2025-07-02 22:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgid "Logout"
 msgstr "Выход"
 
 #: task_manager/templates/partials/navbar.html:43
-#: task_manager/users/templates/users/register.html:6
+#: task_manager/users/templates/users/register.html:5
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -119,6 +119,14 @@ msgstr "Пользователь с таким именем уже сущест�
 msgid "Delete user"
 msgstr "Удалить"
 
+#: task_manager/users/templates/users/delete.html:7
+msgid "Are you sure you want to delete "
+msgstr "Вы уверены, что хотите удалить "
+
+#: task_manager/users/templates/users/delete.html:12
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
 #: task_manager/users/templates/users/list.html:13
 msgid "Full name"
 msgstr "Полное имя"
@@ -135,7 +143,7 @@ msgstr "Изменить"
 msgid "Delete"
 msgstr "Удалить"
 
-#: task_manager/users/templates/users/update.html:6
+#: task_manager/users/templates/users/update.html:5
 msgid "Edit user"
 msgstr "Изменить"
 
@@ -147,17 +155,21 @@ msgstr "Пользователь успешно зарегистрирован"
 msgid "You have successfully logged out of the system"
 msgstr "Вы разлогинены"
 
-#: task_manager/users/views.py:61
+#: task_manager/users/views.py:61 task_manager/users/views.py:91
 msgid "You are not authorized! Please log in."
 msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
 
-#: task_manager/users/views.py:66
+#: task_manager/users/views.py:66 task_manager/users/views.py:96
 msgid "You do not have permission to edit another user."
 msgstr "У вас нет прав для изменения другого пользователя."
 
 #: task_manager/users/views.py:77
 msgid "The user successfully updated"
 msgstr "Пользователь успешно изменен"
+
+#: task_manager/users/views.py:112
+msgid "The user successfully deleted"
+msgstr "Пользователь успешно удален"
 
 #: task_manager/views.py:29
 msgid "You are logged in."

@@ -68,7 +68,7 @@ lint-fix:  ## Auto-fix linting issues using ruff
 	@uv run ruff check --fix task_manager
 
 djlint:  ## Check and reformat Django templates using djlint
-	@uv run djlint task_manager/templates/ --reformat --indent=2
+	@uv run djlint task_manager/**/templates/ --reformat --indent=2
 
 check:  ## Run lint and tests
 	@$(MAKE) lint

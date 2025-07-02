@@ -1,12 +1,10 @@
 <!--task_manager/templates/register.html-->
 {% extends "base.html" %}
 {% load i18n %}
-
 {% block content %}
   <h1 class="my-4">{% trans "Sign up" %}</h1>
   {% include "users/partials/form.html" with button_text="Register" %}
 {% endblock %}
-
 {% block footer %}
   {% include "partials/footer.html" %}
 {% endblock %}
