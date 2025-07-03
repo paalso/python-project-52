@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-03 11:43+0300\n"
+"POT-Creation-Date: 2025-07-03 18:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,8 +48,6 @@ msgid "Learn more"
 msgstr "Узнать больше"
 
 #: task_manager/templates/login.html:5
-#, fuzzy
-#| msgid "Sign up"
 msgid "Sign in"
 msgstr "Войти"
 
@@ -113,9 +111,15 @@ msgstr ""
 msgid "A user with this username already exists."
 msgstr "Пользователь с таким именем уже существует."
 
+#: task_manager/users/mixins.py:12 task_manager/users/views.py:120
+msgid "You are not authorized! Please log in."
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
+
+#: task_manager/users/mixins.py:16
+msgid "You do not have permission to edit another user."
+msgstr "У вас нет прав для изменения другого пользователя."
+
 #: task_manager/users/templates/users/delete.html:5
-#, fuzzy
-#| msgid "Delete"
 msgid "Delete user"
 msgstr "Удалить"
 
@@ -151,33 +155,23 @@ msgstr "Удалить"
 msgid "Edit user"
 msgstr "Изменить"
 
-#: task_manager/users/views.py:36
+#: task_manager/users/views.py:52
 msgid "User successfully registered"
 msgstr "Пользователь успешно зарегистрирован"
 
-#: task_manager/users/views.py:49
+#: task_manager/users/views.py:66
 msgid "You have successfully logged out of the system"
 msgstr "Вы разлогинены"
 
-#: task_manager/users/views.py:62 task_manager/users/views.py:111
-msgid "You are not authorized! Please log in."
-msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
-
-#: task_manager/users/views.py:67
-msgid "You do not have permission to edit another user."
-msgstr "У вас нет прав для изменения другого пользователя."
-
-#: task_manager/users/views.py:78
+#: task_manager/users/views.py:88
 msgid "User successfully updated"
 msgstr "Пользователь успешно изменен"
 
-#: task_manager/users/views.py:104
-#, fuzzy
+#: task_manager/users/views.py:112
 msgid "User was successfully deleted."
 msgstr "Пользователь успешно удален"
 
-#: task_manager/users/views.py:116
-#, fuzzy
+#: task_manager/users/views.py:125
 #| msgid "You do not have permission to edit another user."
 msgid "You do not have permission to modify another user."
 msgstr "У вас нет прав для изменения другого пользователя."
