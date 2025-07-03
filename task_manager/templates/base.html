@@ -20,18 +20,7 @@
   <body class="d-flex flex-column min-vh-100">
     {% include "partials/navbar.html" %}
     <main class="container wrapper flex-grow-1">
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show"
-               role="alert">
-            {{ message }}
-            <button type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    aria-label="Close"></button>
-          </div>
-        {% endfor %}
-      {% endif %}
+      {% include "partials/messages.html" %}
       {% block content %}{% endblock %}
     </main>
     {% block footer %}{% endblock %}
