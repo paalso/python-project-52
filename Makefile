@@ -53,7 +53,7 @@ shell:  ## Launch Django shell_plus with IPython
 	@$(MANAGE) shell_plus --ipython
 
 test:  ## Run tests using pytest
-	@$(MANAGE) test
+	uv run pytest -v
 
 makemessages:  ## Extract translations for ru and ua
 	uv run sh -c 'django-admin makemessages -l ru && django-admin makemessages -l ua'

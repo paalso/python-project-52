@@ -1,0 +1,39 @@
+[
+  {
+    "model": "users.customuser",
+    "pk": 1,
+    "fields": {
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "date_joined": "2025-06-23T19:32:38.125Z"
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": 2,
+    "fields": {
+      "is_superuser": false,
+      "username": "mikeward",
+      "first_name": "Mike",
+      "last_name": "Ward",
+      "is_active": true,
+      "date_joined": "2025-06-26T14:42:19.402Z"
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": 3,
+    "fields": {
+      "is_superuser": false,
+      "username": "socrates",
+      "first_name": "Socrates",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-26T14:43:18.393Z"
+    }
+  }
+]
