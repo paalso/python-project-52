@@ -152,7 +152,7 @@ msgid "Edit user"
 msgstr "Изменить"
 
 #: task_manager/users/views.py:36
-msgid "The user successfully registered"
+msgid "User successfully registered"
 msgstr "Пользователь успешно зарегистрирован"
 
 #: task_manager/users/views.py:49
@@ -168,13 +168,12 @@ msgid "You do not have permission to edit another user."
 msgstr "У вас нет прав для изменения другого пользователя."
 
 #: task_manager/users/views.py:78
-msgid "The user successfully updated"
+msgid "User successfully updated"
 msgstr "Пользователь успешно изменен"
 
 #: task_manager/users/views.py:104
 #, fuzzy
-#| msgid "The user successfully deleted"
-msgid "The user was successfully deleted."
+msgid "User was successfully deleted."
 msgstr "Пользователь успешно удален"
 
 #: task_manager/users/views.py:116
