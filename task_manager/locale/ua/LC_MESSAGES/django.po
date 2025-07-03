@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-02 22:21+0300\n"
+"POT-Creation-Date: 2025-07-03 11:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,6 +123,10 @@ msgstr ""
 msgid "Yes, delete"
 msgstr ""
 
+#: task_manager/users/templates/users/delete.html:13
+msgid "Cancel"
+msgstr ""
+
 #: task_manager/users/templates/users/list.html:13
 msgid "Full name"
 msgstr ""
@@ -143,28 +147,32 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
-#: task_manager/users/views.py:35
+#: task_manager/users/views.py:36
 msgid "The user successfully registered"
 msgstr ""
 
-#: task_manager/users/views.py:48
+#: task_manager/users/views.py:49
 msgid "You have successfully logged out of the system"
 msgstr ""
 
-#: task_manager/users/views.py:61 task_manager/users/views.py:91
+#: task_manager/users/views.py:62 task_manager/users/views.py:111
 msgid "You are not authorized! Please log in."
 msgstr ""
 
-#: task_manager/users/views.py:66 task_manager/users/views.py:96
+#: task_manager/users/views.py:67
 msgid "You do not have permission to edit another user."
 msgstr ""
 
-#: task_manager/users/views.py:77
+#: task_manager/users/views.py:78
 msgid "The user successfully updated"
 msgstr ""
 
-#: task_manager/users/views.py:112
-msgid "The user successfully deleted"
+#: task_manager/users/views.py:104
+msgid "The user was successfully deleted."
+msgstr ""
+
+#: task_manager/users/views.py:116
+msgid "You do not have permission to modify another user."
 msgstr ""
 
 #: task_manager/views.py:29

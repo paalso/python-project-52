@@ -2,8 +2,9 @@
 import logging
 
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.views import LogoutView
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -83,33 +84,36 @@ class UserUpdateView(UpdateView):
 
 class UserDeleteView(View):
     def get(self, request, pk):
-        user = request.user
-        logger.debug(f'ℹ️ Current user: {user}')
-
-        if not request.user.is_authenticated:
-            messages.error(
-                request, _('You are not authorized! Please log in.'))
-            return redirect('login')
-
-        if user.pk != pk:
-            messages.error(
-                request, _('You do not have permission to edit another user.'))
-            return redirect('users:list')
-
-        logger.debug(f'ℹ️ request: {request}')
-        return render(
-            request, 'users/delete.html'
-        )
+        check = self._check_permissions(request, pk)
+        if check:
+            return check
+        return render(request, 'users/delete.html')
 
     def post(self, request, pk):
-        deletion_confirm = request.POST.get('confirm') == 'true'
-        user = CustomUser.objects.get(pk=pk)
-        if deletion_confirm and user:
-            ip = self.request.META.get('REMOTE_ADDR', 'unknown')
+        check = self._check_permissions(request, pk)
+        if check:
+            return check
+
+        user = get_object_or_404(CustomUser, pk=pk)
+        ip = self.request.META.get('REMOTE_ADDR', 'unknown')
+
+        if request.POST.get('confirm') == 'true':
+            logger.debug(f'🗑️ Deleting user: {user} from IP {ip}')
             user.delete()
-            messages.success(
-                self.request,
-                _('The user successfully deleted')
-            )
-            logger.debug(f'🗑️ {user} successfully deleted from ip {ip}')
+            logout(request)
+            messages.success(request, _('The user was successfully deleted.'))
+            return redirect('users:list')
+
         return redirect('users:list')
+
+    def _check_permissions(self, request, pk):
+        if not request.user.is_authenticated:
+            messages.error(request, _('You are not authorized! Please log in.'))
+            return redirect('login')
+
+        if request.user.pk != pk:
+            messages.error(request, _(
+                'You do not have permission to modify another user.'))
+            return redirect('users:list')
+
+        return None
