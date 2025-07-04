@@ -33,9 +33,11 @@ def update_user_setup(client, django_user_model):
 
 
 @pytest.fixture
-def update_user_data():
+def user_data():
     return {
         'username': 'Platonicus',
+        'first_name': 'Plato',
+        'last_name': 'P.',
         'password1': 'pass123',
         'password2': 'pass123',
     }
@@ -118,11 +120,11 @@ def test_delete_self_user_with_confirmation(
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 @pytest.mark.django_db
 def test_update_user_not_authenticated(
-        client, django_user_model, method, update_user_data):
+        client, django_user_model, method, user_data):
     target_user = django_user_model.objects.create_user(
         username='Socrates', password='pass123')
     url = reverse('users:update', kwargs={'pk': target_user.pk})
-    response = getattr(client, method)(url, update_user_data, follow=True)
+    response = getattr(client, method)(url, user_data, follow=True)
 
     assert_redirected_with_message(
         response, reverse('login'),
@@ -132,14 +134,14 @@ def test_update_user_not_authenticated(
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 @pytest.mark.django_db
 def test_update_user_by_other_authenticated_user(
-        client, django_user_model, method, update_user_data):
+        client, django_user_model, method, user_data):
     target_user = django_user_model.objects.create_user(
         username='Socrates', password='pass123')
     url = reverse('users:update', kwargs={'pk': target_user.pk})
     requesting_user = django_user_model.objects.create_user(
         'foreigner', password='pwd')
     client.force_login(requesting_user)
-    response = getattr(client, method)(url, update_user_data, follow=True)
+    response = getattr(client, method)(url, user_data, follow=True)
 
     assert_redirected_with_message(
         response, reverse('users:list'),
@@ -147,11 +149,10 @@ def test_update_user_by_other_authenticated_user(
 
 
 @pytest.mark.django_db
-def test_update_self_user(
-        client, django_user_model, update_user_setup, update_user_data):
+def test_update_self_user(update_user_setup, user_data):
     client, target_user, url = update_user_setup
     client.force_login(target_user)
-    response = client.post(url, update_user_data, follow=True)
+    response = client.post(url, user_data, follow=True)
 
     assert_redirected_with_message(
         response,
@@ -161,3 +162,31 @@ def test_update_self_user(
     assert not response.wsgi_request.user.is_authenticated
     target_user.refresh_from_db()
     assert target_user.username == 'Platonicus'
+
+
+# ----- Create (register) testing -----------------------------------
+## ---- Navbar testing ----
+def test_register_link_visibility(client, load_users, django_user_model):
+    url = reverse('index')
+    register_url = reverse('users:create')
+
+    # nobody is authenticated
+    unauthenticated_response = client.get(url)
+    assert register_url in unauthenticated_response.text
+
+    # somebody is authenticated
+    authenticated_user = django_user_model.objects.get(pk=2)
+    client.force_login(authenticated_user)
+    authenticated_response = client.get(url)
+    assert register_url not in authenticated_response.text
+
+
+def test_register_user(client, user_data, django_user_model):
+    url = 'users:create'
+    print(url)
+    response = client.post(url, user_data, follow=True)
+    assert_redirected_with_message(
+        response,
+        reverse('login'),
+        'Пользователь успешно зарегистрирован'
+    )
