@@ -1,0 +1,23 @@
+name: CI
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ">=3.13"
+
+      - name: Install uv
+        uses: yezz123/setup-uv@v4
+
+      - name: Install project dependencies
+        run: make sync
+
+      - name: Run linter, djlinter and tests
+        run: make check
