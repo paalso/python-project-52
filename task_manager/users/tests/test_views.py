@@ -165,7 +165,7 @@ def test_update_self_user(update_user_setup, user_data):
 
 
 # ----- Create (register) testing -----------------------------------
-## ---- Navbar testing ----
+# ---- Navbar testing ----
 def test_register_link_visibility(client, load_users, django_user_model):
     url = reverse('index')
     register_url = reverse('users:create')
@@ -181,12 +181,36 @@ def test_register_link_visibility(client, load_users, django_user_model):
     assert register_url not in authenticated_response.text
 
 
-def test_register_user(client, user_data, django_user_model):
-    url = 'users:create'
-    print(url)
+def test_create_user(client, user_data, django_user_model):
+    url = reverse('users:create')
     response = client.post(url, user_data, follow=True)
+
     assert_redirected_with_message(
         response,
         reverse('login'),
         'Пользователь успешно зарегистрирован'
     )
+    user = django_user_model.objects.get(username=user_data['username'])
+    assert user.first_name == user_data['first_name']
+    assert user.last_name == user_data['last_name']
+    assert user.check_password(user_data['password1'])
+
+
+def test_create_user_with_existing_username(
+        client, user_data, django_user_model):
+    django_user_model.objects.create_user(
+        username=user_data['username'], password='testpass'
+    )
+    url = reverse('users:create')
+    response = client.post(url, user_data, follow=True)
+
+    assert response.status_code == 200
+
+    assert 'form' in response.context
+    form = response.context['form']
+    assert form.errors
+    assert 'username' in form.errors
+    assert any('Пользователь с таким именем уже существует.' in e
+               for e in form.errors['username'])
+    assert django_user_model.objects.filter(
+        username=user_data['username']).count() == 1
