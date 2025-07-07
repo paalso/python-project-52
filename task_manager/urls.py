@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('login/', views.LoginUserView.as_view(), name='login'),
     path('users/', include('task_manager.users.urls')),
+    path('statuses/', include('task_manager.statuses.urls')),
     path('admin/', admin.site.urls),
 ]
