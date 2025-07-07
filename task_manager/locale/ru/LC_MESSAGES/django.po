@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-07 18:25+0300\n"
+"POT-Creation-Date: 2025-07-07 18:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,14 +102,10 @@ msgstr "Ваш пароль должен содержать как миниму�
 msgid "Enter the same password again for verification."
 msgstr "Для подтверждения введите, пожалуйста, пароль ещё раз."
 
-#: task_manager/users/forms.py:46
+#: task_manager/users/forms.py:38
 msgid "Your password is too short. Password must be at least 3 characters."
 msgstr ""
 "Введённый пароль слишком короткий. Он должен содержать как минимум 3 символа."
-
-#: task_manager/users/forms.py:60
-msgid "A user with this username already exists."
-msgstr "Пользователь с таким именем уже существует."
 
 #: task_manager/users/mixins.py:12 task_manager/users/views.py:120
 msgid "You are not authorized! Please log in."
@@ -178,6 +174,9 @@ msgstr "У вас нет прав для изменения другого по�
 #: task_manager/views.py:29
 msgid "You are logged in."
 msgstr "Вы залогинены"
+
+#~ msgid "A user with this username already exists."
+#~ msgstr "Пользователь с таким именем уже существует."
 
 #~ msgid "Register"
 #~ msgstr "Зарегистрировать"
