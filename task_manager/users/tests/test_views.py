@@ -164,6 +164,38 @@ def test_update_self_user(update_user_setup, user_data):
     assert target_user.username == 'Platonicus'
 
 
+@pytest.mark.django_db
+def test_update_self_user_to_existing_username(
+    client, django_user_model, load_users
+):
+    user_to_update = django_user_model.objects.get(username='mikeward')
+    other_user = django_user_model.objects.get(username='socrates')
+    client.force_login(user_to_update)
+    url = reverse('users:update', kwargs={'pk': user_to_update.pk})
+    data = {
+        'username': other_user.username,
+        'first_name': user_to_update.first_name,
+        'last_name': user_to_update.last_name,
+        'password1': 'pass123',
+        'password2': 'pass123',
+    }
+    response = client.post(url, data, follow=True)
+
+    assert response.status_code == 200
+    assert 'form' in response.context
+    form = response.context['form']
+    assert form.errors
+    assert 'username' in form.errors
+    assert any(
+        'Пользователь с таким именем уже существует.' in e
+        for e in form.errors['username']
+    )
+    assert django_user_model.objects.filter(
+        username=other_user.username).count() == 1
+    assert django_user_model.objects.filter(
+        username=user_to_update.username).count() == 1
+
+
 # ----- Create (register) testing -----------------------------------
 # ---- Navbar testing ----
 def test_register_link_visibility(client, load_users, django_user_model):
