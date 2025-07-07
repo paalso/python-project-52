@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView
 
-from .forms import CustomUserForm, CustomUserUpdateForm
+from .forms import CustomUserCreationForm, CustomUserUpdateForm
 from .mixins import UserAccessMixin
 from .models import CustomUser
 
@@ -42,7 +42,7 @@ class UserListView(ListView):
 
 
 class UserRegisterView(CreateView):
-    form_class = CustomUserForm
+    form_class = CustomUserCreationForm
     template_name = 'users/register.html'
     success_url = reverse_lazy('login')
 
