@@ -11,23 +11,13 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView
 
+from task_manager.utils.request import format_ip_log
+
 from .forms import CustomUserForm
 from .mixins import UserAccessMixin
 from .models import CustomUser
 
 logger = logging.getLogger(__name__)
-
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        return x_forwarded_for.split(",")[0].strip()
-    return request.META.get('REMOTE_ADDR', 'unknown')
-
-
-def format_ip_log(request, label='from IP', sep='='):
-    ip = get_client_ip(request)
-    return f'{label}{sep}{ip}'
 
 
 class UserListView(ListView):
