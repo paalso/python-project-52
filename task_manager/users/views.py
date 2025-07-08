@@ -13,7 +13,7 @@ from django.views.generic import CreateView, ListView, UpdateView
 
 from task_manager.utils.request import format_ip_log
 
-from .forms import CustomUserForm
+from .forms import CustomUserForm, CustomUserUpdateForm
 from .mixins import UserAccessMixin
 from .models import CustomUser
 
@@ -60,7 +60,7 @@ class UserLogoutView(LogoutView):
 class UserUpdateView(
     LoginRequiredMixin, UserAccessMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
-    form_class = CustomUserForm
+    form_class = CustomUserUpdateForm
     template_name = 'users/update.html'
     success_url = reverse_lazy('users:list')
 

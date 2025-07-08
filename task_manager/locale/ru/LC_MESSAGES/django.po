@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 14:49+0300\n"
+"POT-Creation-Date: 2025-07-08 21:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,11 +71,11 @@ msgstr "Изменить статус"
 msgid "Update"
 msgstr "Изменить"
 
-#: task_manager/statuses/views.py:29
+#: task_manager/statuses/views.py:32
 msgid "Status successfully updated"
 msgstr "Статус успешно изменен"
 
-#: task_manager/statuses/views.py:40
+#: task_manager/statuses/views.py:47
 msgid "Status successfully created"
 msgstr "Статус успешно создан"
 
@@ -152,7 +152,11 @@ msgid "Your password is too short. Password must be at least 3 characters."
 msgstr ""
 "Введённый пароль слишком короткий. Он должен содержать как минимум 3 символа."
 
-#: task_manager/users/mixins.py:12 task_manager/users/views.py:120
+#: task_manager/users/forms.py:52
+msgid "A user with this username already exists."
+msgstr "Пользователь с таким именем уже существует."
+
+#: task_manager/users/mixins.py:12 task_manager/users/views.py:110
 msgid "You are not authorized! Please log in."
 msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
 
@@ -184,32 +188,29 @@ msgstr "Полное имя"
 msgid "Edit user"
 msgstr "Изменить"
 
-#: task_manager/users/views.py:52
+#: task_manager/users/views.py:42
 msgid "User successfully registered"
 msgstr "Пользователь успешно зарегистрирован"
 
-#: task_manager/users/views.py:66
+#: task_manager/users/views.py:56
 msgid "You have successfully logged out of the system"
 msgstr "Вы разлогинены"
 
-#: task_manager/users/views.py:88
+#: task_manager/users/views.py:78
 msgid "User successfully updated"
 msgstr "Пользователь успешно изменен"
 
-#: task_manager/users/views.py:112
+#: task_manager/users/views.py:102
 msgid "User was successfully deleted."
 msgstr "Пользователь успешно удален"
 
-#: task_manager/users/views.py:125
+#: task_manager/users/views.py:115
 msgid "You do not have permission to modify another user."
 msgstr "У вас нет прав для изменения другого пользователя."
 
 #: task_manager/views.py:29
 msgid "You are logged in."
 msgstr "Вы залогинены"
-
-#~ msgid "A user with this username already exists."
-#~ msgstr "Пользователь с таким именем уже существует."
 
 #~ msgid "Register"
 #~ msgstr "Зарегистрировать"

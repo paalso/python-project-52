@@ -27,7 +27,7 @@ def delete_user_setup(client, django_user_model):
 @pytest.fixture
 def update_user_setup(client, django_user_model):
     target_user = django_user_model.objects.create_user(
-        username='Socrates', password='pass123')
+        username='user1', password='pass123')
     url = reverse('users:update', kwargs={'pk': target_user.pk})
     return client, target_user, url
 
@@ -35,9 +35,9 @@ def update_user_setup(client, django_user_model):
 @pytest.fixture
 def user_data():
     return {
-        'username': 'Platonicus',
-        'first_name': 'Plato',
-        'last_name': 'P.',
+        'username': 'user2',
+        'first_name': 'User2',
+        'last_name': 'User2',
         'password1': 'pass123',
         'password2': 'pass123',
     }
@@ -149,9 +149,12 @@ def test_update_user_by_other_authenticated_user(
 
 
 @pytest.mark.django_db
-def test_update_self_user(update_user_setup, user_data):
+@pytest.mark.parametrize('new_username', ['user2', 'user1'])
+def test_update_self_user(update_user_setup, user_data, new_username):
     client, target_user, url = update_user_setup
     client.force_login(target_user)
+
+    user_data['username'] = new_username
     response = client.post(url, user_data, follow=True)
 
     assert_redirected_with_message(
@@ -161,7 +164,7 @@ def test_update_self_user(update_user_setup, user_data):
     )
     assert not response.wsgi_request.user.is_authenticated
     target_user.refresh_from_db()
-    assert target_user.username == 'Platonicus'
+    assert target_user.username == new_username
 
 
 @pytest.mark.django_db

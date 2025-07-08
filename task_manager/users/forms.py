@@ -39,3 +39,15 @@ class CustomUserForm(UserCreationForm):
                   'Password must be at least 3 characters.'))
 
         return password2
+
+
+class CustomUserUpdateForm(CustomUserForm):
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        qs = CustomUser.objects.filter(username=username)
+        if self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
+        if qs.exists():
+            raise forms.ValidationError(
+                _('A user with this username already exists.'))
+        return username
