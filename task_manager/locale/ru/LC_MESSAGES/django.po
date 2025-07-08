@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-07 18:47+0300\n"
+"POT-Creation-Date: 2025-07-08 12:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,30 @@ msgstr "Имя пользователя"
 #: task_manager/forms.py:15 task_manager/forms.py:18
 msgid "Password"
 msgstr "Пароль"
+
+#: task_manager/statuses/templates/statuses/list.html:5
+#: task_manager/templates/partials/navbar.html:21
+msgid "Statuses"
+msgstr "Статусы"
+
+#: task_manager/statuses/templates/statuses/list.html:12
+msgid "Name"
+msgstr "Имя"
+
+#: task_manager/statuses/templates/statuses/list.html:13
+#: task_manager/users/templates/users/list.html:14
+msgid "Created"
+msgstr "Дата создания"
+
+#: task_manager/statuses/templates/statuses/list.html:24
+#: task_manager/users/templates/users/list.html:26
+msgid "Edit"
+msgstr "Изменить"
+
+#: task_manager/statuses/templates/statuses/list.html:26
+#: task_manager/users/templates/users/list.html:28
+msgid "Delete"
+msgstr "Удалить"
 
 #: task_manager/templates/base.html:9
 #: task_manager/templates/partials/navbar.html:5
@@ -60,10 +84,6 @@ msgstr "Вход"
 #: task_manager/users/templates/users/list.html:5
 msgid "Users"
 msgstr "Пользователи"
-
-#: task_manager/templates/partials/navbar.html:21
-msgid "Statuses"
-msgstr "Статусы"
 
 #: task_manager/templates/partials/navbar.html:24
 msgid "Labels"
@@ -134,18 +154,6 @@ msgstr "Отменить"
 #: task_manager/users/templates/users/list.html:13
 msgid "Full name"
 msgstr "Полное имя"
-
-#: task_manager/users/templates/users/list.html:14
-msgid "Created"
-msgstr "Дата создания"
-
-#: task_manager/users/templates/users/list.html:26
-msgid "Edit"
-msgstr "Изменить"
-
-#: task_manager/users/templates/users/list.html:28
-msgid "Delete"
-msgstr "Удалить"
 
 #: task_manager/users/templates/users/update.html:5
 msgid "Edit user"

@@ -1,4 +1,4 @@
-<!--task_manager/templates/list.html-->
+<!-- task_manager/statuses/templates/statuses/list.html -->
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
@@ -19,11 +19,11 @@
         <tr>
           <td>{{ status.id }}</td>
           <td>{{ status.name }}</td>
-          <td>{{ status.date_joined|date:"d.m.Y h:m" }}</td>
+          <td>{{ status.created_at|date:"d.m.Y h:m" }}</td>
           <td>
-            <a href="{% url 'statuses:update' statuses.id %}">{% trans "Edit" %}</a>
+            <a href="{% url 'statuses:update' status.id %}">{% trans "Edit" %}</a>
             <br>
-            <a href="{% url 'statuses:delete' statuses.id %}">{% trans "Delete" %}</a>
+            <a href="{% url 'statuses:delete' status.id %}">{% trans "Delete" %}</a>
           </td>
         </tr>
       {% endfor %}

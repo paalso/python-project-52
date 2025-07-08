@@ -5,7 +5,7 @@ from .models import Status
 
 class StatusListView(ListView):
     model = Status
-    context_object_name = 'status'
+    context_object_name = 'statuses'
     template_name = 'statuses/list.html'
 
 
