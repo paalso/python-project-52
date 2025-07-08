@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 12:32+0300\n"
+"POT-Creation-Date: 2025-07-08 14:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,28 +29,53 @@ msgstr "Пользователи"
 msgid "Password"
 msgstr ""
 
+#: task_manager/statuses/forms.py:14
+#: task_manager/statuses/templates/statuses/list.html:13
+msgid "Name"
+msgstr ""
+
+#: task_manager/statuses/templates/statuses/create.html:5
+msgid "Create status"
+msgstr ""
+
+#: task_manager/statuses/templates/statuses/create.html:6
+msgid "Create"
+msgstr ""
+
 #: task_manager/statuses/templates/statuses/list.html:5
 #: task_manager/templates/partials/navbar.html:21
 msgid "Statuses"
 msgstr ""
 
-#: task_manager/statuses/templates/statuses/list.html:12
-msgid "Name"
-msgstr ""
-
-#: task_manager/statuses/templates/statuses/list.html:13
+#: task_manager/statuses/templates/statuses/list.html:14
 #: task_manager/users/templates/users/list.html:14
 msgid "Created"
 msgstr ""
 
-#: task_manager/statuses/templates/statuses/list.html:24
+#: task_manager/statuses/templates/statuses/list.html:25
 #: task_manager/users/templates/users/list.html:26
 msgid "Edit"
 msgstr ""
 
-#: task_manager/statuses/templates/statuses/list.html:26
+#: task_manager/statuses/templates/statuses/list.html:27
 #: task_manager/users/templates/users/list.html:28
 msgid "Delete"
+msgstr ""
+
+#: task_manager/statuses/templates/statuses/update.html:5
+msgid "Edit status"
+msgstr ""
+
+#: task_manager/statuses/templates/statuses/update.html:6
+msgid "Update"
+msgstr ""
+
+#: task_manager/statuses/views.py:29
+msgid "Status successfully updated"
+msgstr ""
+
+#: task_manager/statuses/views.py:40
+msgid "Status successfully created"
 msgstr ""
 
 #: task_manager/templates/base.html:9
