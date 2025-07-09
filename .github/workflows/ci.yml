@@ -20,4 +20,4 @@ jobs:
         run: make sync
 
       - name: Run linter, djlinter and tests
-        run: make check
+        run: make ci

@@ -52,25 +52,44 @@ sqlite:  ## Open SQLite CLI on the project database
 shell:  ## Launch Django shell_plus with IPython
 	@$(MANAGE) shell_plus --ipython
 
-test:  ## Run tests using pytest
-	uv run pytest -v
-
 makemessages:  ## Extract translations for ru and ua
 	uv run sh -c 'django-admin makemessages -l ru && django-admin makemessages -l ua'
 
 compilemessages:  ## Compile translation files (.po -> .mo)
 	uv run django-admin compilemessages
 
-lint:  ## Check code style using ruff
+code-lint:  ## Run Ruff code linter
 	@uv run ruff check task_manager
+
+template-lint:  ## Lint Django templates with djlint
+	@uv run djlint task_manager/**/templates/ --reformat --indent=2
+
+lint:  ## Run all linters (ruff + djlint)
+	@$(MAKE) code-lint
+	@$(MAKE) template-lint
 
 lint-fix:  ## Auto-fix linting issues using ruff
 	@uv run ruff check --fix task_manager
 
-djlint:  ## Check and reformat Django templates using djlint
-	@uv run djlint task_manager/**/templates/ --reformat --indent=2
+format:  ## Format code using ruff
+	@uv run ruff format task_manager
 
-check:  ## Run lint and tests
+qa:  ## Run all linters + tests + template lint
 	@$(MAKE) lint
 	@$(MAKE) test
-	@$(MAKE) djlint
+
+cov:  ## Run tests with coverage report
+	@uv run coverage run -m pytest
+	@uv run coverage report -m
+	@uv run coverage html && echo "Open htmlcov/index.html"
+
+test:  ## Run tests (optionally: NAME=tests/test_users.py or -k keyword)
+	@uv run pytest -v $(NAME)
+
+test-nodeid:  ## Run single test by nodeid: NODEID=tests/test_users.py::test_login
+	@uv run pytest -v $(NODEID)
+
+clean:  ## Remove .pyc, __pycache__, coverage, translations, htmlcov
+	find . -name '*.pyc' -delete
+	find . -name '__pycache__' -type d -exec rm -r {} +
+	rm -rf .coverage htmlcov locale/*/LC_MESSAGES/*.mo
