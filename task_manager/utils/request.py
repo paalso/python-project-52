@@ -1,3 +1,6 @@
+from django.contrib.messages import get_messages
+
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -8,3 +11,7 @@ def get_client_ip(request):
 def format_ip_log(request, label='from IP', sep='='):
     ip = get_client_ip(request)
     return f'{label}{sep}{ip}'
+
+
+def extract_messages(response):
+    return [str(m) for m in get_messages(response.wsgi_request)]
