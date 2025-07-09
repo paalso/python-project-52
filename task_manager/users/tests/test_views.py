@@ -1,10 +1,7 @@
 import pytest
-from django.contrib.messages import get_messages
 from django.urls import reverse
 
-
-def extract_messages(response):
-    return [str(m) for m in get_messages(response.wsgi_request)]
+from task_manager.utils.request import extract_messages
 
 
 def assert_redirected_with_message(response, expected_url, message):
