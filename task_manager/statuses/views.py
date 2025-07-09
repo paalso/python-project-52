@@ -4,7 +4,12 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, UpdateView, View
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    ListView,
+    UpdateView,
+)
 
 from task_manager.utils.request import format_ip_log
 
@@ -50,5 +55,15 @@ class StatusCreateView(LoginRequiredMixin, CreateView):
         return response
 
 
-class StatusDeleteView(View):
-    pass
+class StatusDeleteView(LoginRequiredMixin, DeleteView):
+    model = Status
+    template_name = 'statuses/delete.html'
+    success_url = reverse_lazy('statuses:list')
+    context_object_name = 'status'
+
+    def form_valid(self, form):
+        status = self.object
+        messages.success(self.request, _('Status successfully deleted'))
+        logger.info(
+            f'❌ Status deleted: {status} {format_ip_log(self.request)}')
+        return super().form_valid(form)

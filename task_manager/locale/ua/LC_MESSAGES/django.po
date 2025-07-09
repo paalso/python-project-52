@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 21:48+0300\n"
+"POT-Creation-Date: 2025-07-09 12:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,6 +42,25 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+#: task_manager/statuses/templates/statuses/delete.html:5
+msgid "Delete status"
+msgstr ""
+
+#: task_manager/statuses/templates/statuses/delete.html:6
+#, python-format
+msgid "Are you sure you want to delete %(status)s?"
+msgstr ""
+
+#: task_manager/statuses/templates/statuses/delete.html:11
+#: task_manager/users/templates/users/delete.html:10
+msgid "Yes, delete"
+msgstr ""
+
+#: task_manager/statuses/templates/statuses/delete.html:12
+#: task_manager/users/templates/users/delete.html:11
+msgid "Cancel"
+msgstr ""
+
 #: task_manager/statuses/templates/statuses/list.html:5
 #: task_manager/templates/partials/navbar.html:21
 msgid "Statuses"
@@ -70,12 +89,16 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: task_manager/statuses/views.py:32
+#: task_manager/statuses/views.py:37
 msgid "Status successfully updated"
 msgstr ""
 
-#: task_manager/statuses/views.py:47
+#: task_manager/statuses/views.py:52
 msgid "Status successfully created"
+msgstr ""
+
+#: task_manager/statuses/views.py:66
+msgid "Status successfully deleted"
 msgstr ""
 
 #: task_manager/templates/base.html:9
@@ -168,16 +191,8 @@ msgstr ""
 msgid "Delete user"
 msgstr ""
 
-#: task_manager/users/templates/users/delete.html:7
+#: task_manager/users/templates/users/delete.html:6
 msgid "Are you sure you want to delete "
-msgstr ""
-
-#: task_manager/users/templates/users/delete.html:12
-msgid "Yes, delete"
-msgstr ""
-
-#: task_manager/users/templates/users/delete.html:13
-msgid "Cancel"
 msgstr ""
 
 #: task_manager/users/templates/users/list.html:13

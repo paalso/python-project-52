@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 21:48+0300\n"
+"POT-Creation-Date: 2025-07-09 12:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,25 @@ msgstr "Создать статус"
 msgid "Create"
 msgstr "Создать"
 
+#: task_manager/statuses/templates/statuses/delete.html:5
+msgid "Delete status"
+msgstr "Удалить статус"
+
+#: task_manager/statuses/templates/statuses/delete.html:6
+#: task_manager/users/templates/users/delete.html:6
+msgid "Are you sure you want to delete "
+msgstr "Вы уверены, что хотите удалить "
+
+#: task_manager/statuses/templates/statuses/delete.html:11
+#: task_manager/users/templates/users/delete.html:10
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+#: task_manager/statuses/templates/statuses/delete.html:12
+#: task_manager/users/templates/users/delete.html:11
+msgid "Cancel"
+msgstr "Отменить"
+
 #: task_manager/statuses/templates/statuses/list.html:5
 #: task_manager/templates/partials/navbar.html:21
 msgid "Statuses"
@@ -71,13 +90,17 @@ msgstr "Изменить статус"
 msgid "Update"
 msgstr "Изменить"
 
-#: task_manager/statuses/views.py:32
+#: task_manager/statuses/views.py:37
 msgid "Status successfully updated"
 msgstr "Статус успешно изменен"
 
-#: task_manager/statuses/views.py:47
+#: task_manager/statuses/views.py:52
 msgid "Status successfully created"
 msgstr "Статус успешно создан"
+
+#: task_manager/statuses/views.py:66
+msgid "Status successfully deleted"
+msgstr "Статус успешно удален"
 
 #: task_manager/templates/base.html:9
 #: task_manager/templates/partials/navbar.html:5
@@ -167,18 +190,6 @@ msgstr "У вас нет прав для изменения другого по�
 #: task_manager/users/templates/users/delete.html:5
 msgid "Delete user"
 msgstr "Удалить"
-
-#: task_manager/users/templates/users/delete.html:7
-msgid "Are you sure you want to delete "
-msgstr "Вы уверены, что хотите удалить "
-
-#: task_manager/users/templates/users/delete.html:12
-msgid "Yes, delete"
-msgstr "Да, удалить"
-
-#: task_manager/users/templates/users/delete.html:13
-msgid "Cancel"
-msgstr "Отменить"
 
 #: task_manager/users/templates/users/list.html:13
 msgid "Full name"
