@@ -22,9 +22,10 @@ def authenticated_client(client, django_user_model):
 
 
 # # ----- List (Read) view -----------------------------------------------
-# Tests that the statuses list view is accessible and context is populated
 @pytest.mark.django_db
 def test_statuses_list_view(client, sample_statuses):
+    """Tests that the statuses list view is accessible and context
+    is populated"""
     url = reverse('statuses:list')
     response = client.get(url)
 
@@ -39,11 +40,15 @@ def test_statuses_list_view(client, sample_statuses):
 
 
 # ----- Delete testing ----------------------------------------------
-# Tests that unauthenticated users are redirected when trying to delete
+# TODO: (optional) Add edge-case tests:
+# - Attempt to delete a status with a non-existent ID (e.g., pk=99999)
+# This will help to further cover possible exceptions and edge cases.
+
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_status_delete_not_authenticated(
         sample_statuses, method, client, django_user_model):
+    """Tests that unauthenticated users are redirected when trying to delete"""
     # victim_status = random.choice(Status.objects.all())
     victim_status = get_random_record(Status)
     url = reverse('statuses:delete', kwargs={'pk': victim_status.pk})
@@ -54,9 +59,9 @@ def test_status_delete_not_authenticated(
     assert Status.objects.filter(pk=victim_status.pk).exists()
 
 
-# Tests successful deletion of a status by an authenticated user
 @pytest.mark.django_db
 def test_status_delete_authenticated(authenticated_client, sample_statuses):
+    """Tests successful deletion of a status by an authenticated user"""
     status = random.choice(Status.objects.all())
     url = reverse('statuses:delete', kwargs={'pk': status.pk})
     response = authenticated_client.get(url)
@@ -79,10 +84,15 @@ def test_status_delete_authenticated(authenticated_client, sample_statuses):
 
 
 # ----- Update view ------------------------------------------------------
-# Tests that unauthenticated users cannot access update view
+# TODO: (optional) Add edge-case tests:
+# - Attempt to update a status with a name exceeding the maximum allowed length
+# (specified in the model)
+# This will help to further cover possible exceptions and edge cases.
+
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_status_update_not_authenticated(sample_statuses, method, client):
+    """Tests that unauthenticated users cannot access update view"""
     target_status = random.choice(Status.objects.all())
     target_status_name = target_status.name
     url = reverse('statuses:update', kwargs={'pk': target_status.pk})
@@ -95,9 +105,9 @@ def test_status_update_not_authenticated(sample_statuses, method, client):
     assert target_status.name == target_status_name
 
 
-# Tests that authenticated users can update an existing status
 @pytest.mark.django_db
 def test_status_update_authenticated(authenticated_client, sample_statuses):
+    """Tests that authenticated users can update an existing status"""
     target_status = random.choice(Status.objects.all())
     url = reverse('statuses:update', kwargs={'pk': target_status.pk})
     data = {'name': 'еще новее'}
@@ -120,9 +130,9 @@ def test_status_update_authenticated(authenticated_client, sample_statuses):
     assert target_status.name == data['name']
 
 
-# Tests that duplicate name in update form shows validation error
 @pytest.mark.django_db
 def test_status_update_duplicate_name(authenticated_client):
+    """Tests that duplicate name in update form shows validation error"""
     Status.objects.create(name='оригинал')
     other = Status.objects.create(name='дубликат')
     url = reverse('statuses:update', kwargs={'pk': other.pk})
@@ -138,9 +148,9 @@ def test_status_update_duplicate_name(authenticated_client):
     assert other.name == 'дубликат'
 
 
-# Tests that empty name in update form shows validation error
 @pytest.mark.django_db
 def test_status_update_empty_name(authenticated_client):
+    """Tests that empty name in update form shows validation error"""
     target_status = Status.objects.create(name='длинное имя')
     target_status_name = target_status.name
     url = reverse('statuses:update', kwargs={'pk': target_status.pk})
@@ -158,11 +168,11 @@ def test_status_update_empty_name(authenticated_client):
 
 
 # ----- Delete view -----------------------------------------------------
-# Tests that unauthenticated users cannot access create view
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_status_create_not_authenticated(
         sample_statuses, method, client, django_user_model):
+    """Tests that unauthenticated users cannot access create view"""
     url = reverse('statuses:create')
     data = {'name': 'еще новее'}
     response = getattr(client, method)(url, data, follow=False)
@@ -172,9 +182,9 @@ def test_status_create_not_authenticated(
     assert not Status.objects.filter(name=data["name"]).exists()
 
 
-# Tests that authenticated users can create a new status
 @pytest.mark.django_db
 def test_status_create_authenticated(authenticated_client, sample_statuses):
+    """Tests that authenticated users can create a new status"""
     url = reverse('statuses:create')
     data = {'name': 'вновь созданный'}
     response = authenticated_client.get(url, data)
@@ -195,9 +205,9 @@ def test_status_create_authenticated(authenticated_client, sample_statuses):
     assert Status.objects.count() == 3
 
 
-# Tests that duplicate name in create form shows validation error
 @pytest.mark.django_db
 def test_status_create_duplicate_name(authenticated_client):
+    """Tests that duplicate name in create form shows validation error"""
     data = {'name': 'уникальный'}
     Status.objects.create(**data)
     url = reverse('statuses:create')
@@ -212,9 +222,9 @@ def test_status_create_duplicate_name(authenticated_client):
     assert Status.objects.filter(name='уникальный').count() == 1
 
 
-# Tests that empty name in create form shows validation error
 @pytest.mark.django_db
 def test_status_create_empty_name(authenticated_client):
+    """Tests that empty name in create form shows validation error"""
     url = reverse('statuses:create')
     data = {'name': ''}
     response = authenticated_client.post(url, data, follow=True)
