@@ -3,6 +3,29 @@
 {% load i18n %}
 {% block content %}
   <h1 class="my-4">{% trans "Tasks" %}</h1>
+  <a class="btn btn-primary mb-3" href="{% url 'tasks:create' %}">{% trans "Create a task" %}</a>
+  <div class="card mb-3">
+    <div class="card-body bg-light">
+      <form class="form-inline center" method="get">
+        <div class="mb-3">
+          <label class="form-label" for="id_status">Status</label>
+          <select name="status" class="form-select ml-2 mr-3" id="id_status">
+            <option value="" selected="">---------</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <div class="form-check">
+            <input type="checkbox"
+                   name="self_tasks"
+                   class="form-check-input mr-3"
+                   id="id_self_tasks">
+            <label class="form-check-label" for="id_self_tasks">Только свои задачи</label>
+          </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Показать">
+      </form>
+    </div>
+  </div>
   <!--    TODO: Add bootstrap utilities to control table columns width:-->
   <!--    w-10, w-20 or smth-->
   <table class="table table-striped">
@@ -12,6 +35,7 @@
         <th>{% trans "Name" %}</th>
         <th>{% trans "Status" %}</th>
         <th>{% trans "Author" %}</th>
+        <th>{% trans "Executor" %}</th>
         <th>{% trans "Created" %}</th>
         <th></th>
       </tr>
@@ -19,14 +43,16 @@
     <tbody>
       {% for task in tasks %}
         <tr>
-          <td>{{ user.id }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.full_name }}</td>
-          <td>{{ user.date_joined|date:"d.m.Y h:m" }}</td>
+          <td>{{ task.id }}</td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.author }}</td>
+          <td>{{ task.executor }}</td>
+          <td>{{ task.created_at|date:"d.m.Y h:m" }}</td>
           <td>
-            <a href="{% url 'users:update' user.id %}">{% trans "Edit" %}</a>
+            <a href="{% url 'tasks:update' task.id %}">{% trans "Edit" %}</a>
             <br>
-            <a href="{% url 'users:delete' user.id %}">{% trans "Delete" %}</a>
+            <a href="{% url 'tasks:delete' task.id %}">{% trans "Delete" %}</a>
           </td>
         </tr>
       {% endfor %}
