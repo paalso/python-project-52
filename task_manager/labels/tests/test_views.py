@@ -78,7 +78,7 @@ def test_label_delete_authenticated(authenticated_client, sample_labels):
     assert response.status_code == 200
     assert response.redirect_chain
     assert last_redirect_url == expected_url
-    assert any('Статус успешно удален' in m for m in messages)
+    assert any('Метка успешно удалена' in m for m in messages)
     assert not Label.objects.filter(pk=label.pk).exists()
     assert Label.objects.count() == 1
 
