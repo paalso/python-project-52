@@ -110,7 +110,7 @@ msgstr "Метка успешно изменена"
 
 #: task_manager/labels/views.py:52
 msgid "Label successfully created"
-msgstr "Меька успешно создана"
+msgstr "Метка успешно создана"
 
 #: task_manager/labels/views.py:66
 msgid "Label successfully deleted"
