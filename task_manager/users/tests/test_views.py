@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 
-from task_manager.utils.request import extract_messages
+from task_manager.tests.utils import extract_messages
 
 
 def assert_redirected_with_message(response, expected_url, message):

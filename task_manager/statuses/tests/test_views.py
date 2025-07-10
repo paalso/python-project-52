@@ -4,7 +4,7 @@ import pytest
 from django.urls import reverse
 
 from task_manager.statuses.models import Status
-from task_manager.utils.request import extract_messages
+from task_manager.tests.utils import extract_messages, get_random_record
 
 
 @pytest.fixture
@@ -19,10 +19,6 @@ def authenticated_client(client, django_user_model):
         username='testuser', password='testpass')
     client.force_login(user)
     return client
-
-
-def get_random_record(model):
-    return random.choice(model.objects.all())
 
 
 # # ----- List (Read) view -----------------------------------------------
