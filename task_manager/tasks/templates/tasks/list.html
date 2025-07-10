@@ -1,0 +1,35 @@
+<!--task_manager/templates/list.html-->
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <h1 class="my-4">{% trans "Tasks" %}</h1>
+  <!--    TODO: Add bootstrap utilities to control table columns width:-->
+  <!--    w-10, w-20 or smth-->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Status" %}</th>
+        <th>{% trans "Author" %}</th>
+        <th>{% trans "Created" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.full_name }}</td>
+          <td>{{ user.date_joined|date:"d.m.Y h:m" }}</td>
+          <td>
+            <a href="{% url 'users:update' user.id %}">{% trans "Edit" %}</a>
+            <br>
+            <a href="{% url 'users:delete' user.id %}">{% trans "Delete" %}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
