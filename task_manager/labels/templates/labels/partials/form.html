@@ -1,6 +1,5 @@
 {% load crispy_forms_tags i18n %}
 <form method="post">
-  <div>Label form</div>
   {% csrf_token %}
   {{ form|crispy }}
   <button type="submit" class="btn btn-primary">{% trans button_text %}</button>
