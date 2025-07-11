@@ -140,3 +140,4 @@ GitHub.sublime-settings
 
 # Idea PyCharm #
 .idea/
+/task_manager/tasks/templates/tmp*.html

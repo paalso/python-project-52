@@ -1,23 +1,28 @@
+# task_manager/tasks/views.py
 import logging
 
-from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import (
-    ListView, CreateView, UpdateView, DeleteView
-)
+from django.views.generic import CreateView, DeleteView, UpdateView
+from django_filters.views import FilterView
 
-# from .forms import StatusForm
+from .filters import TaskFilter
 from .models import Task
 
 logger = logging.getLogger(__name__)
 
 
-class TaskListView(ListView):
+class TaskListView(FilterView):
     model = Task
-    context_object_name = 'tasks'
+    filterset_class = TaskFilter
     template_name = 'tasks/list.html'
+    context_object_name = 'tasks'
+
+    def get_filterset(self, filterset_class):
+        return filterset_class(
+            self.request.GET,
+            request=self.request,
+            queryset=self.get_queryset()
+        )
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
