@@ -10,6 +10,8 @@
       <form method="get">
         {% csrf_token %}
         {{ filter.form|crispy }}
+        <button type="button" id="clear-labels" class="btn btn-secondary mb-3">Clear Labels</button>
+        <br>
         <button type="submit" class="btn btn-primary">{% trans "Show" %}</button>
       </form>
     </div>
@@ -46,4 +48,20 @@
       {% endfor %}
     </tbody>
   </table>
+{% endblock %}
+
+<!--TODO: Refactor this dirty JS hack with selected labels clearing button-->
+{% block extra_js %}
+  <script>
+      document.getElementById('clear-labels').addEventListener('click', function() {
+          const labelsSelect = document.getElementById('id_labels');
+          if (!labelsSelect) return;
+
+          for (let option of labelsSelect.options) {
+              option.selected = false;
+          }
+
+          labelsSelect.dispatchEvent(new Event('change'));
+      });
+  </script>
 {% endblock %}
