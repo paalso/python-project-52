@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-10 15:47+0300\n"
+"POT-Creation-Date: 2025-07-14 14:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,10 +33,12 @@ msgstr ""
 #: task_manager/labels/templates/labels/list.html:13
 #: task_manager/statuses/forms.py:14
 #: task_manager/statuses/templates/statuses/list.html:13
+#: task_manager/tasks/templates/tasks/list.html:23
 msgid "Name"
 msgstr ""
 
 #: task_manager/labels/templates/labels/create.html:5
+#: task_manager/labels/templates/labels/list.html:6
 msgid "Create label"
 msgstr ""
 
@@ -72,24 +74,23 @@ msgstr ""
 msgid "Labels"
 msgstr ""
 
-#: task_manager/labels/templates/labels/list.html:6
-msgid "Create a label"
-msgstr ""
-
 #: task_manager/labels/templates/labels/list.html:14
 #: task_manager/statuses/templates/statuses/list.html:14
+#: task_manager/tasks/templates/tasks/list.html:27
 #: task_manager/users/templates/users/list.html:14
 msgid "Created"
 msgstr ""
 
 #: task_manager/labels/templates/labels/list.html:25
 #: task_manager/statuses/templates/statuses/list.html:25
+#: task_manager/tasks/templates/tasks/list.html:41
 #: task_manager/users/templates/users/list.html:26
 msgid "Edit"
 msgstr ""
 
 #: task_manager/labels/templates/labels/list.html:27
 #: task_manager/statuses/templates/statuses/list.html:27
+#: task_manager/tasks/templates/tasks/list.html:43
 #: task_manager/users/templates/users/list.html:28
 msgid "Delete"
 msgstr ""
@@ -144,6 +145,39 @@ msgstr ""
 msgid "Status successfully deleted"
 msgstr ""
 
+#: task_manager/tasks/filters.py:22
+msgid "Label"
+msgstr "Метка"
+
+#: task_manager/tasks/filters.py:26
+msgid "Self tasks only"
+msgstr "Только свои задачи"
+
+#: task_manager/tasks/templates/tasks/list.html:6
+#: task_manager/templates/partials/navbar.html:27
+msgid "Tasks"
+msgstr ""
+
+#: task_manager/tasks/templates/tasks/list.html:7
+msgid "Create task"
+msgstr "Создать задачу"
+
+#: task_manager/tasks/templates/tasks/list.html:13
+msgid "Show"
+msgstr "Показать"
+
+#: task_manager/tasks/templates/tasks/list.html:24
+msgid "Status"
+msgstr ""
+
+#: task_manager/tasks/templates/tasks/list.html:25
+msgid "Author"
+msgstr ""
+
+#: task_manager/tasks/templates/tasks/list.html:26
+msgid "Executor"
+msgstr ""
+
 #: task_manager/templates/base.html:9
 #: task_manager/templates/partials/navbar.html:5
 msgid "Task manager"
@@ -176,10 +210,6 @@ msgstr "Вход"
 #: task_manager/users/templates/users/list.html:5
 msgid "Users"
 msgstr "Пользователи"
-
-#: task_manager/templates/partials/navbar.html:27
-msgid "Tasks"
-msgstr ""
 
 #: task_manager/templates/partials/navbar.html:35
 msgid "Logout"
