@@ -13,14 +13,6 @@ def sample_statuses():
     Status.objects.create(name='в работе')
 
 
-@pytest.fixture
-def authenticated_client(client, django_user_model):
-    user = django_user_model.objects.create_user(
-        username='testuser', password='testpass')
-    client.force_login(user)
-    return client
-
-
 # # ----- List (Read) view -----------------------------------------------
 @pytest.mark.django_db
 def test_statuses_list_view(client, sample_statuses):

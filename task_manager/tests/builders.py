@@ -1,9 +1,9 @@
 # task_manager/tests/builders.py
 
-from task_manager.users.models import CustomUser
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
+from task_manager.users.models import CustomUser
 
 
 def build_label(name='some progress'):
@@ -30,7 +30,7 @@ def build_user(
     return user
 
 
-def create_task(
+def build_task(
     name='Some Task',
     description='Some description...',
     status=None,
