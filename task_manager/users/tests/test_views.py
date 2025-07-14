@@ -1,16 +1,7 @@
 import pytest
 from django.urls import reverse
 
-from task_manager.tests.utils import extract_messages
-
-
-def assert_redirected_with_message(response, expected_url, message):
-    assert response.status_code == 200
-    assert response.redirect_chain
-    last_redirect_url = response.redirect_chain[-1][0]
-    assert last_redirect_url.endswith(expected_url)
-    messages = extract_messages(response)
-    assert any(message in m for m in messages)
+from task_manager.tests.utils import assert_redirected_with_message
 
 
 @pytest.fixture

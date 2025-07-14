@@ -3,7 +3,10 @@ from django.urls import reverse
 
 from task_manager.statuses.models import Status
 from task_manager.tests.builders import build_status, build_task
-from task_manager.tests.utils import extract_messages, get_random_record
+from task_manager.tests.utils import (
+    assert_redirected_with_message,
+    get_random_record,
+)
 
 
 @pytest.fixture
@@ -61,16 +64,14 @@ def test_status_delete_authenticated(authenticated_client, sample_statuses):
     assert response.context['status'] == status
 
     response = authenticated_client.post(url, follow=True)
-    last_redirect_url = response.redirect_chain[-1][0]
-    expected_url = reverse('statuses:list')
-    messages = extract_messages(response)
 
-    assert response.status_code == 200
-    assert response.redirect_chain
-    assert last_redirect_url == expected_url
-    assert any('Статус успешно удален' in m for m in messages)
     assert not Status.objects.filter(pk=status.pk).exists()
     assert Status.objects.count() == 1
+    assert_redirected_with_message(
+        response,
+        reverse('statuses:list'),
+        'Статус успешно удален'
+    )
 
 
 @pytest.mark.django_db
@@ -78,18 +79,14 @@ def test_status_delete_linked_to_tasks(authenticated_client):
     """Tests that status linked to tasks cannot be deleted"""
     linked_to_tasks_status = build_status()
     build_task(status=linked_to_tasks_status)
-
     url = reverse('statuses:delete', kwargs={'pk': linked_to_tasks_status.pk})
     response = authenticated_client.post(url, follow=True)
-    last_redirect_url = response.redirect_chain[-1][0]
-    expected_url = reverse('statuses:list')
-    messages = extract_messages(response)
 
-    assert response.redirect_chain
-    assert last_redirect_url == expected_url
-    assert response.status_code == 200
-    assert any('Невозможно удалить статус, потому что он используется' == m
-               for m in messages)
+    assert_redirected_with_message(
+        response,
+        reverse('statuses:list'),
+        'Невозможно удалить статус, потому что он используется'
+    )
     assert Status.objects.filter(pk=linked_to_tasks_status.pk).exists()
 
 # ----- Update view ------------------------------------------------------
@@ -128,15 +125,13 @@ def test_status_update_authenticated(authenticated_client, sample_statuses):
     assert response.context['status'] == target_status
 
     response = authenticated_client.post(url, data, follow=True)
-    last_redirect_url = response.redirect_chain[-1][0]
-    expected_url = reverse('statuses:list')
-    messages = extract_messages(response)
     target_status.refresh_from_db()
 
-    assert response.status_code == 200
-    assert response.redirect_chain
-    assert last_redirect_url == expected_url
-    assert any('Статус успешно изменен' in m for m in messages)
+    assert_redirected_with_message(
+        response,
+        reverse('statuses:list'),
+        'Статус успешно изменен'
+    )
     assert target_status.name == data['name']
 
 
@@ -203,14 +198,12 @@ def test_status_create_authenticated(authenticated_client, sample_statuses):
     assert 'statuses/create.html' in [t.name for t in response.templates]
 
     response = authenticated_client.post(url, data, follow=True)
-    last_redirect_url = response.redirect_chain[-1][0]
-    expected_url = reverse('statuses:list')
-    messages = extract_messages(response)
 
-    assert response.status_code == 200
-    assert response.redirect_chain
-    assert last_redirect_url == expected_url
-    assert any('Статус успешно создан' in m for m in messages)
+    assert_redirected_with_message(
+        response,
+        reverse('statuses:list'),
+        'Статус успешно создан'
+    )
     assert Status.objects.filter(name=data["name"]).exists()
     assert Status.objects.count() == 3
 
