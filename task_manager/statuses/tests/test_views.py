@@ -4,13 +4,14 @@ import pytest
 from django.urls import reverse
 
 from task_manager.statuses.models import Status
+from task_manager.tests.builders import build_status, build_task
 from task_manager.tests.utils import extract_messages, get_random_record
 
 
 @pytest.fixture
 def sample_statuses():
-    Status.objects.create(name='новый')
-    Status.objects.create(name='в работе')
+    Status.objects.create(name='new')
+    Status.objects.create(name='in progress')
 
 
 # # ----- List (Read) view -----------------------------------------------
@@ -27,8 +28,8 @@ def test_statuses_list_view(client, sample_statuses):
 
     statuses = response.context['statuses']
     names = [status.name for status in statuses]
-    assert 'новый' in names
-    assert 'в работе' in names
+    assert 'new' in names
+    assert 'in progress' in names
 
 
 # ----- Delete testing ----------------------------------------------
@@ -75,11 +76,31 @@ def test_status_delete_authenticated(authenticated_client, sample_statuses):
     assert Status.objects.count() == 1
 
 
+@pytest.mark.django_db
+def test_status_delete_linked_to_tasks(authenticated_client):
+    """Tests that status linked to tasks cannot be deleted"""
+    linked_to_tasks_status = build_status()
+    build_task(status=linked_to_tasks_status)
+
+    url = reverse('statuses:delete', kwargs={'pk': linked_to_tasks_status.pk})
+    response = authenticated_client.post(url, follow=True)
+    last_redirect_url = response.redirect_chain[-1][0]
+    expected_url = reverse('statuses:list')
+    messages = extract_messages(response)
+
+    assert response.redirect_chain
+    assert last_redirect_url == expected_url
+    assert response.status_code == 200
+    assert any('Невозможно удалить статус, потому что он используется' == m
+               for m in messages)
+    assert Status.objects.filter(pk=linked_to_tasks_status.pk).exists()
+
 # ----- Update view ------------------------------------------------------
 # TODO: (optional) Add edge-case tests:
 # - Attempt to update a status with a name exceeding the maximum allowed length
 # (specified in the model)
 # This will help to further cover possible exceptions and edge cases.
+
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
@@ -166,7 +187,7 @@ def test_status_create_not_authenticated(
         sample_statuses, method, client, django_user_model):
     """Tests that unauthenticated users cannot access create view"""
     url = reverse('statuses:create')
-    data = {'name': 'еще новее'}
+    data = {'name': 'latest'}
     response = getattr(client, method)(url, data, follow=False)
 
     assert response.status_code == 302
@@ -178,7 +199,7 @@ def test_status_create_not_authenticated(
 def test_status_create_authenticated(authenticated_client, sample_statuses):
     """Tests that authenticated users can create a new status"""
     url = reverse('statuses:create')
-    data = {'name': 'вновь созданный'}
+    data = {'name': 'latest'}
     response = authenticated_client.get(url, data)
 
     assert response.status_code == 200

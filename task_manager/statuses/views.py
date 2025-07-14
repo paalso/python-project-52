@@ -2,6 +2,8 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.deletion import ProtectedError
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
@@ -61,9 +63,22 @@ class StatusDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('statuses:list')
     context_object_name = 'status'
 
-    def form_valid(self, form):
-        status = self.object
-        messages.success(self.request, _('Status successfully deleted'))
-        logger.info(
-            f'❌ Status deleted: {status} {format_ip_log(self.request)}')
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            messages.success(request, _('Status successfully deleted'))
+            logger.info(
+                f'❌ Status deleted: {self.object} {format_ip_log(request)}'
+            )
+        except ProtectedError:
+            messages.error(
+                request,
+                _('Cannot delete status because '
+                  'it is in use by one or more tasks.')
+            )
+            logger.warning(
+                f'⚠️ Attempted to delete status in use: '
+                f'{self.object} {format_ip_log(request)}'
+            )
+        return redirect(self.success_url)
