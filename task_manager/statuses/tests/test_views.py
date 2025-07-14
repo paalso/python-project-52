@@ -1,5 +1,3 @@
-import random
-
 import pytest
 from django.urls import reverse
 
@@ -42,7 +40,6 @@ def test_statuses_list_view(client, sample_statuses):
 def test_status_delete_not_authenticated(
         sample_statuses, method, client, django_user_model):
     """Tests that unauthenticated users are redirected when trying to delete"""
-    # victim_status = random.choice(Status.objects.all())
     victim_status = get_random_record(Status)
     url = reverse('statuses:delete', kwargs={'pk': victim_status.pk})
     response = getattr(client, method)(url, follow=False)
@@ -55,7 +52,7 @@ def test_status_delete_not_authenticated(
 @pytest.mark.django_db
 def test_status_delete_authenticated(authenticated_client, sample_statuses):
     """Tests successful deletion of a status by an authenticated user"""
-    status = random.choice(Status.objects.all())
+    status = get_random_record(Status)
     url = reverse('statuses:delete', kwargs={'pk': status.pk})
     response = authenticated_client.get(url)
 
@@ -106,7 +103,7 @@ def test_status_delete_linked_to_tasks(authenticated_client):
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_status_update_not_authenticated(sample_statuses, method, client):
     """Tests that unauthenticated users cannot access update view"""
-    target_status = random.choice(Status.objects.all())
+    target_status = get_random_record(Status)
     target_status_name = target_status.name
     url = reverse('statuses:update', kwargs={'pk': target_status.pk})
     data = {'name': 'старый'}
@@ -121,7 +118,7 @@ def test_status_update_not_authenticated(sample_statuses, method, client):
 @pytest.mark.django_db
 def test_status_update_authenticated(authenticated_client, sample_statuses):
     """Tests that authenticated users can update an existing status"""
-    target_status = random.choice(Status.objects.all())
+    target_status = get_random_record(Status)
     url = reverse('statuses:update', kwargs={'pk': target_status.pk})
     data = {'name': 'еще новее'}
     response = authenticated_client.get(url, data)
