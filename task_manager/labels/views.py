@@ -2,6 +2,7 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
@@ -61,9 +62,26 @@ class LabelDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('labels:list')
     context_object_name = 'label'
 
-    def form_valid(self, form):
-        label = self.object
-        messages.success(self.request, _('Label successfully deleted'))
-        logger.info(
-            f'❌ Label deleted: {label} {format_ip_log(self.request)}')
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        label = self.get_object()
+        if self._is_in_use(label):
+            messages.error(
+                request,
+                _('Cannot delete label because '
+                  'it is in use by one or more tasks.')
+            )
+            logger.warning(
+                f'⚠️ Attempted to delete label in use: '
+                f'{label} {format_ip_log(request)}'
+            )
+        else:
+            label.delete()
+            messages.success(request, _('Label successfully deleted'))
+            logger.info(
+                f'❌ Label deleted: {label} {format_ip_log(request)}'
+            )
+        return redirect(self.success_url)
+
+    @staticmethod
+    def _is_in_use(label):
+        return label.task_set.exists()

@@ -83,7 +83,7 @@ def test_label_delete_authenticated(authenticated_client, sample_labels):
 def test_label_delete_linked_to_tasks(authenticated_client):
     """Tests that label linked to tasks can be deleted"""
     linked_to_tasks_label = build_label()
-    build_task(labels=[linked_to_tasks_label])  # Да, это корректно
+    build_task(labels=[linked_to_tasks_label])
 
     url = reverse('labels:delete', kwargs={'pk': linked_to_tasks_label.pk})
     response = authenticated_client.post(url, follow=True)
@@ -91,9 +91,9 @@ def test_label_delete_linked_to_tasks(authenticated_client):
     assert_redirected_with_message(
         response,
         reverse('labels:list'),
-        'Метка успешно удалена'
+        'Невозможно удалить метку, потому что она используется'
     )
-    assert not Label.objects.filter(pk=linked_to_tasks_label.pk).exists()
+    assert Label.objects.filter(pk=linked_to_tasks_label.pk).exists()
 
 
 # ----- Update view ------------------------------------------------------
