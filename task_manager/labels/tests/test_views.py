@@ -4,7 +4,12 @@ import pytest
 from django.urls import reverse
 
 from task_manager.labels.models import Label
-from task_manager.tests.utils import extract_messages, get_random_record
+from task_manager.tests.builders import build_label, build_task
+from task_manager.tests.utils import (
+    assert_redirected_with_message,
+    extract_messages,
+    get_random_record,
+)
 
 
 @pytest.fixture
@@ -73,6 +78,24 @@ def test_label_delete_authenticated(authenticated_client, sample_labels):
     assert any('Метка успешно удалена' in m for m in messages)
     assert not Label.objects.filter(pk=label.pk).exists()
     assert Label.objects.count() == 1
+
+
+# WARNING: Does not comply with technical specifications
+@pytest.mark.django_db
+def test_label_delete_linked_to_tasks(authenticated_client):
+    """Tests that label linked to tasks can be deleted"""
+    linked_to_tasks_label = build_label()
+    build_task(labels=[linked_to_tasks_label])  # Да, это корректно
+
+    url = reverse('labels:delete', kwargs={'pk': linked_to_tasks_label.pk})
+    response = authenticated_client.post(url, follow=True)
+
+    assert_redirected_with_message(
+        response,
+        reverse('labels:list'),
+        'Метка успешно удалена'
+    )
+    assert not Label.objects.filter(pk=linked_to_tasks_label.pk).exists()
 
 
 # ----- Update view ------------------------------------------------------
@@ -159,7 +182,7 @@ def test_label_update_empty_name(authenticated_client):
     assert target_label.name == target_label_name
 
 
-# ----- Delete view -----------------------------------------------------
+# ----- Create view -----------------------------------------------------
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_label_create_not_authenticated(
