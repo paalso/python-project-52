@@ -1,6 +1,7 @@
 import pytest
 from django.urls import reverse
 
+from task_manager.tests.builders import build_task
 from task_manager.tests.utils import assert_redirected_with_message
 
 
@@ -102,6 +103,36 @@ def test_delete_self_user_with_confirmation(
     )
     assert not django_user_model.objects.filter(pk=user.pk).exists()
     assert not response.wsgi_request.user.is_authenticated
+
+
+@pytest.mark.django_db
+def test_user_delete_linked_to_tasks_with_author(
+        load_users, django_user_model, delete_user_setup):
+    """Tests that a user that is the author of a task cannot be deleted"""
+    client, linked_to_tasks_user, url = delete_user_setup
+    build_task(author=linked_to_tasks_user)
+    response = client.post(url, {'confirm': 'true'}, follow=True)
+    assert_redirected_with_message(
+        response,
+        reverse('users:list'),
+        'Невозможно удалить пользователя, потому что он используется.'
+    )
+    assert django_user_model.objects.filter(pk=linked_to_tasks_user.pk).exists()
+
+
+@pytest.mark.django_db
+def test_user_delete_linked_to_tasks_with_executor(
+        load_users, django_user_model, delete_user_setup):
+    """Tests that a user that is the executor of a task cannot be deleted"""
+    client, linked_to_tasks_user, url = delete_user_setup
+    build_task(executor=linked_to_tasks_user)
+    response = client.post(url, {'confirm': 'true'}, follow=True)
+    assert_redirected_with_message(
+        response,
+        reverse('users:list'),
+        'Невозможно удалить пользователя, потому что он используется.'
+    )
+    assert django_user_model.objects.filter(pk=linked_to_tasks_user.pk).exists()
 
 
 # ----- Update testing ----------------------------------------------

@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LogoutView
+from django.db.models.deletion import ProtectedError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -81,6 +82,8 @@ class UserUpdateView(
 
 # TODO: refactor using generic views and mixins
 class UserDeleteView(View):
+    redirect_url = reverse_lazy('users:list')
+
     def get(self, request, pk):
         check = self._check_permissions(request, pk)
         if check:
@@ -94,15 +97,29 @@ class UserDeleteView(View):
 
         user = get_object_or_404(CustomUser, pk=pk)
 
-        if request.POST.get('confirm') == 'true':
-            logger.info(f'🗑️ Deleting user: {user} '
-                         f'{format_ip_log(self.request)}')
+        if request.POST.get('confirm') != 'true':
+            return redirect(self.redirect_url)
+
+        try:
+            logger.info(f'📄 Current user: {user} '
+                        f'{format_ip_log(self.request)}')
             user.delete()
             logout(request)
             messages.success(request, _('User was successfully deleted.'))
-            return redirect('users:list')
+            logger.info(f'🗑️ Deleting user: {user} '
+                        f'{format_ip_log(self.request)}')
+        except ProtectedError:
+            messages.error(
+                request,
+                _('Cannot delete user because '
+                  'it is in use by one or more tasks.')
+            )
+            logger.warning(
+                f'⚠️ Attempted to delete user in use: '
+                f'{user} {format_ip_log(request)}'
+            )
 
-        return redirect('users:list')
+        return redirect(self.redirect_url)
 
     def _check_permissions(self, request, pk):
         if not request.user.is_authenticated:
