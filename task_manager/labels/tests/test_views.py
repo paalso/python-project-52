@@ -7,7 +7,6 @@ from task_manager.labels.models import Label
 from task_manager.tests.builders import build_label, build_task
 from task_manager.tests.utils import (
     assert_redirected_with_message,
-    extract_messages,
     get_random_record,
 )
 
@@ -68,14 +67,13 @@ def test_label_delete_authenticated(authenticated_client, sample_labels):
     assert response.context['label'] == label
 
     response = authenticated_client.post(url, follow=True)
-    last_redirect_url = response.redirect_chain[-1][0]
-    expected_url = reverse('labels:list')
-    messages = extract_messages(response)
 
     assert response.status_code == 200
-    assert response.redirect_chain
-    assert last_redirect_url == expected_url
-    assert any('Метка успешно удалена' in m for m in messages)
+    assert_redirected_with_message(
+        response,
+        reverse('labels:list'),
+        'Метка успешно удалена'
+    )
     assert not Label.objects.filter(pk=label.pk).exists()
     assert Label.objects.count() == 1
 
@@ -133,15 +131,14 @@ def test_label_update_authenticated(authenticated_client, sample_labels):
     assert response.context['label'] == target_label
 
     response = authenticated_client.post(url, data, follow=True)
-    last_redirect_url = response.redirect_chain[-1][0]
-    expected_url = reverse('labels:list')
-    messages = extract_messages(response)
     target_label.refresh_from_db()
 
     assert response.status_code == 200
-    assert response.redirect_chain
-    assert last_redirect_url == expected_url
-    assert any('Метка успешно изменена' in m for m in messages)
+    assert_redirected_with_message(
+        response,
+        reverse('labels:list'),
+        'Метка успешно изменена'
+    )
     assert target_label.name == data['name']
 
 
@@ -208,14 +205,13 @@ def test_label_create_authenticated(authenticated_client, sample_labels):
     assert 'labels/create.html' in [t.name for t in response.templates]
 
     response = authenticated_client.post(url, data, follow=True)
-    last_redirect_url = response.redirect_chain[-1][0]
-    expected_url = reverse('labels:list')
-    messages = extract_messages(response)
 
     assert response.status_code == 200
-    assert response.redirect_chain
-    assert last_redirect_url == expected_url
-    assert any('Метка успешно создана' in m for m in messages)
+    assert_redirected_with_message(
+        response,
+        reverse('labels:list'),
+        'Метка успешно создана'
+    )
     assert Label.objects.filter(name=data["name"]).exists()
     assert Label.objects.count() == 3
 
