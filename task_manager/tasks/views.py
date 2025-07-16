@@ -60,7 +60,6 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('tasks:list')
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
         response = super().form_valid(form)
         task = form.instance
         messages.success(self.request, _('Task successfully updated'))
