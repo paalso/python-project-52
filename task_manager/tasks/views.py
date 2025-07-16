@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
 
 from task_manager.utils.request import format_ip_log
@@ -29,6 +29,12 @@ class TaskListView(FilterView):
             request=self.request,
             queryset=self.get_queryset()
         )
+
+
+class TaskDetailView(LoginRequiredMixin, DetailView):
+    model = Task
+    template_name = 'tasks/show.html'
+    context_object_name = 'task'
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):

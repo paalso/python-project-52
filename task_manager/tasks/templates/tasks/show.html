@@ -1,0 +1,52 @@
+<!--task_manager/templates/list.html-->
+{% extends "base.html" %}
+<!--{% load i18n %}-->
+{% load crispy_forms_tags i18n %}
+{% block content %}
+  <h1 class="my-4">{% trans "Task View " %}</h1>
+  <a class="btn btn-primary mb-3" href="{% url 'tasks:create' %}">{% trans "Create task" %}</a>
+  <!--    TODO: Add bootstrap utilities to control table columns width:-->
+  <!--    w-10, w-20 or smth-->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      <h2>{{ task.name }}</h2>
+    </div>
+    <div class="card-body bg-light">
+      <p>{{ task.description }}</p>
+      <hr>
+      <div class="container">
+        <div class="row p-1">
+          <div class="col">{% trans "Author" %}</div>
+          <div class="col">{{ task.author }}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">{% trans "Executor" %}</div>
+          <div class="col">{{ task.executor }}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">{% trans "Status" %}</div>
+          <div class="col">{{ task.status }}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">{% trans "Created" %}</div>
+          <div class="col">{{ task.created_at|date:"d.m.Y H:i" }}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">
+            <h6>{% trans "Labels" %}</h6>
+            <ul>
+              {% for label in task.labels.all %}<li>{{ label.name }}</li>{% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col">
+            <a href="{% url 'tasks:update' task.pk %}">{% trans 'Update' %}</a>
+            <br>
+            <a href="{% url 'tasks:delete' task.pk %}">{% trans 'Delete' %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
