@@ -1,11 +1,17 @@
 # task_manager/tasks/views.py
 import logging
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
 
+from task_manager.utils.request import format_ip_log
+
 from .filters import TaskFilter
+from .forms import TaskForm
 from .models import Task
 
 logger = logging.getLogger(__name__)
@@ -26,7 +32,19 @@ class TaskListView(FilterView):
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
-    pass
+    model = Task
+    form_class = TaskForm
+    template_name = 'tasks/create.html'
+    success_url = reverse_lazy('tasks:list')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        response = super().form_valid(form)
+        task = form.instance
+        messages.success(self.request, _('Task successfully created'))
+        logger.info(f'✅ New task created: {task} '
+                    f'{format_ip_log(self.request)}')
+        return response
 
 
 class TaksUpdateView(LoginRequiredMixin, UpdateView):
