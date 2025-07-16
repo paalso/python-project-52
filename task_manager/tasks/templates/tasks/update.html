@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <h1 class="my-4">{% trans "Edit task" %}</h1>
+  {% include "tasks/partials/form.html" with button_text=_("Update") %}
+{% endblock %}
+{% block footer %}
+  {% include "partials/footer.html" %}
+{% endblock %}
