@@ -12,6 +12,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from task_manager.mixins import StrictLoginRequiredMessageMixin
 from task_manager.utils.request import format_ip_log
 
 from .forms import LabelForm
@@ -20,7 +21,7 @@ from .models import Label
 logger = logging.getLogger(__name__)
 
 
-class LabelListView(ListView):
+class LabelListView(StrictLoginRequiredMessageMixin, ListView):
     model = Label
     context_object_name = 'labels'
     template_name = 'labels/list.html'

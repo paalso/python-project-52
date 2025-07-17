@@ -17,11 +17,25 @@ def sample_statuses():
 
 # ----- List (Read) view -----------------------------------------------
 @pytest.mark.django_db
-def test_statuses_list_view(client, sample_statuses):
+def test_statuses_list_requires_auth(client):
+    response = client.get(reverse('statuses:list'), follow=False)
+    assert response.status_code == 302
+    assert reverse('login') in response.url
+
+    response = client.get(reverse('statuses:list'), follow=True)
+    assert_redirected_with_message(
+        response,
+        reverse('login'),
+        'Вы не авторизованы! Пожалуйста, выполните вход.'
+    )
+
+
+@pytest.mark.django_db
+def test_statuses_list_view(authenticated_client, sample_statuses):
     """Tests that the statuses list view is accessible and context
     is populated"""
     url = reverse('statuses:list')
-    response = client.get(url)
+    response = authenticated_client.get(url)
 
     assert response.status_code == 200
     assert 'statuses/list.html' in (t.name for t in response.templates)

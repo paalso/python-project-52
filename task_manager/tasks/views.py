@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
 
+from task_manager.mixins import StrictLoginRequiredMessageMixin
 from task_manager.utils.request import format_ip_log
 
 from .filters import TaskFilter
@@ -18,7 +19,7 @@ from .models import Task
 logger = logging.getLogger(__name__)
 
 
-class TaskListView(FilterView):
+class TaskListView(StrictLoginRequiredMessageMixin, FilterView):
     model = Task
     filterset_class = TaskFilter
     template_name = 'tasks/list.html'
@@ -79,7 +80,7 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
         task = self.get_object()
         if request.user != task.author:
             messages.error(request, _('Only the author can delete the task.'))
-            logger.info(f'⚠️  Attempt to delete task {task} '
+            logger.warning(f'🚫 Attempt to delete task {task} '
                         f'with foreign authorization {format_ip_log(request)}')
             return redirect(self.success_url)
         return super().dispatch(request, *args, **kwargs)

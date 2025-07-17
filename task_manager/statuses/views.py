@@ -13,6 +13,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from task_manager.mixins import StrictLoginRequiredMessageMixin
 from task_manager.utils.request import format_ip_log
 
 from .forms import StatusForm
@@ -21,7 +22,7 @@ from .models import Status
 logger = logging.getLogger(__name__)
 
 
-class StatusListView(ListView):
+class StatusListView(StrictLoginRequiredMessageMixin, ListView):
     model = Status
     context_object_name = 'statuses'
     template_name = 'statuses/list.html'

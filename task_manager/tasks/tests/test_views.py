@@ -7,6 +7,7 @@ from task_manager.tests.builders import (
     build_task,
     build_user,
 )
+from task_manager.tests.utils import assert_redirected_with_message
 
 
 @pytest.fixture
@@ -64,14 +65,28 @@ def sample_tasks():
 
 # ----- List (Read) view -----------------------------------------------
 @pytest.mark.django_db
-def test_tasks_list_view(client):
+def test_tasks_list_requires_auth(client):
+    response = client.get(reverse('tasks:list'), follow=False)
+    assert response.status_code == 302
+    assert reverse('login') in response.url
+
+    response = client.get(reverse('tasks:list'), follow=True)
+    assert_redirected_with_message(
+        response,
+        reverse('login'),
+        'Вы не авторизованы! Пожалуйста, выполните вход.'
+    )
+
+
+@pytest.mark.django_db
+def test_tasks_list_view(authenticated_client):
     url = reverse('tasks:list')
-    response = client.get(url)
+    response = authenticated_client.get(url)
+    content = response.content.decode()
 
     assert response.status_code == 200
     assert 'tasks' in response.context
-
-    content = response.content.decode()
+    assert 'tasks/list.html' in [t.name for t in response.templates]
 
     assert 'name="status"' in content
     assert 'id="id_status"' in content

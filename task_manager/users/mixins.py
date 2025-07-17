@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 class UserAccessMixin:
     """Mixin for processing access refusals."""
-
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
             messages.error(self.request,

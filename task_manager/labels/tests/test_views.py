@@ -19,11 +19,25 @@ def sample_labels():
 
 # ----- List (Read) view -----------------------------------------------
 @pytest.mark.django_db
-def test_labels_list_view(client, sample_labels):
+def test_labels_list_requires_auth(client):
+    response = client.get(reverse('labels:list'), follow=False)
+    assert response.status_code == 302
+    assert reverse('login') in response.url
+
+    response = client.get(reverse('statuses:list'), follow=True)
+    assert_redirected_with_message(
+        response,
+        reverse('login'),
+        'Вы не авторизованы! Пожалуйста, выполните вход.'
+    )
+
+
+@pytest.mark.django_db
+def test_labels_list_view(authenticated_client, sample_labels):
     """Tests that the labels list view is accessible and context
     is populated"""
     url = reverse('labels:list')
-    response = client.get(url)
+    response = authenticated_client.get(url)
 
     assert response.status_code == 200
     assert 'labels/list.html' in (t.name for t in response.templates)
