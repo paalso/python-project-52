@@ -15,7 +15,7 @@ def sample_statuses():
     Status.objects.create(name='in progress')
 
 
-# # ----- List (Read) view -----------------------------------------------
+# ----- List (Read) view -----------------------------------------------
 @pytest.mark.django_db
 def test_statuses_list_view(client, sample_statuses):
     """Tests that the statuses list view is accessible and context
@@ -33,7 +33,7 @@ def test_statuses_list_view(client, sample_statuses):
     assert 'in progress' in names
 
 
-# ----- Delete testing ----------------------------------------------
+# ----- Delete view ---------------------------------------------------
 # TODO: (optional) Add edge-case tests:
 # - Attempt to delete a status with a non-existent ID (e.g., pk=99999)
 # This will help to further cover possible exceptions and edge cases.
@@ -89,7 +89,7 @@ def test_status_delete_linked_to_tasks(authenticated_client):
     )
     assert Status.objects.filter(pk=linked_to_tasks_status.pk).exists()
 
-# ----- Update view ------------------------------------------------------
+# ----- Update view ----------------------------------------------------
 # TODO: (optional) Add edge-case tests:
 # - Attempt to update a status with a name exceeding the maximum allowed length
 # (specified in the model)

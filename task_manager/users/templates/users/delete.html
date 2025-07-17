@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
   <h1 class="my-4">{% trans "Delete user" %}</h1>
-  <p>{% trans "Are you sure you want to delete " %} {{ request.user.full_name }}?</p>
+<p>{% trans "Are you sure you want to delete " %} <b>{{ request.user.full_name }}</b>?</p>
   <form method="post">
     {% csrf_token %}
     <input type="hidden" name="confirm" value="true">

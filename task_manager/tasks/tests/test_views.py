@@ -62,7 +62,7 @@ def sample_tasks():
     }
 
 
-# ----- Read testing ------------------------------------------------
+# ----- List (Read) view -----------------------------------------------
 @pytest.mark.django_db
 def test_tasks_list_view(client):
     url = reverse('tasks:list')

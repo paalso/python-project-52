@@ -32,7 +32,7 @@ def user_data():
     }
 
 
-# ----- Read testing ------------------------------------------------
+# ----- List (read) view -----------------------------------------------
 @pytest.mark.django_db
 def test_users_list_view(load_users, client, django_user_model):
     url = reverse('users:list')
@@ -44,7 +44,7 @@ def test_users_list_view(load_users, client, django_user_model):
     assert len(response.context['users']) == django_user_model.objects.count()
 
 
-# ----- Delete testing ----------------------------------------------
+# ----- Delete view ----------------------------------------------------
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_delete_user_not_authenticated(method, client, django_user_model):
@@ -135,7 +135,7 @@ def test_user_delete_linked_to_tasks_with_executor(
     assert django_user_model.objects.filter(pk=linked_to_tasks_user.pk).exists()
 
 
-# ----- Update testing ----------------------------------------------
+# ----- Update view ----------------------------------------------------
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 @pytest.mark.django_db
 def test_update_user_not_authenticated(
@@ -218,7 +218,7 @@ def test_update_self_user_to_existing_username(
         username=user_to_update.username).count() == 1
 
 
-# ----- Create (register) testing -----------------------------------
+# ----- Create (register) view -----------------------------------------
 # ---- Navbar testing ----
 def test_register_link_visibility(client, load_users, django_user_model):
     url = reverse('index')

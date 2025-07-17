@@ -5,7 +5,7 @@
   <h1 class="my-4">{% trans "Delete label" %}</h1>
   <p>
     {% trans "Are you sure you want to delete " %}
-    {{ label }}?
+    <b>{{ label }}</b>?
   </p>
   <form method="post">
     {% csrf_token %}

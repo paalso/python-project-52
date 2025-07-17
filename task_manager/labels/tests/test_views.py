@@ -17,7 +17,7 @@ def sample_labels():
     Label.objects.create(name='в работе')
 
 
-# # ----- List (Read) view -----------------------------------------------
+# ----- List (Read) view -----------------------------------------------
 @pytest.mark.django_db
 def test_labels_list_view(client, sample_labels):
     """Tests that the labels list view is accessible and context
@@ -35,7 +35,7 @@ def test_labels_list_view(client, sample_labels):
     assert 'в работе' in names
 
 
-# ----- Delete testing ----------------------------------------------
+# ----- Delete view ----------------------------------------------------
 # TODO: (optional) Add edge-case tests:
 # - Attempt to delete a label with a non-existent ID (e.g., pk=99999)
 # This will help to further cover possible exceptions and edge cases.
@@ -96,7 +96,7 @@ def test_label_delete_linked_to_tasks(authenticated_client):
     assert Label.objects.filter(pk=linked_to_tasks_label.pk).exists()
 
 
-# ----- Update view ------------------------------------------------------
+# ----- Update view ----------------------------------------------------
 # TODO: (optional) Add edge-case tests:
 # - Attempt to update a label with a name exceeding the maximum allowed length
 # (specified in the model)
@@ -179,7 +179,7 @@ def test_label_update_empty_name(authenticated_client):
     assert target_label.name == target_label_name
 
 
-# ----- Create view -----------------------------------------------------
+# ----- Create view ----------------------------------------------------
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_label_create_not_authenticated(

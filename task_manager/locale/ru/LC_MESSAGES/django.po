@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-17 12:51+0300\n"
+"POT-Creation-Date: 2025-07-17 13:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,7 @@ msgstr "Пароль"
 #: task_manager/labels/templates/labels/list.html:13
 #: task_manager/statuses/forms.py:14
 #: task_manager/statuses/templates/statuses/list.html:13
+#: task_manager/tasks/forms.py:13
 #: task_manager/tasks/templates/tasks/list.html:23
 msgid "Name"
 msgstr "Имя"
@@ -75,6 +76,7 @@ msgid "Cancel"
 msgstr "Отменить"
 
 #: task_manager/labels/templates/labels/list.html:5
+#: task_manager/tasks/forms.py:17
 #: task_manager/tasks/templates/tasks/show.html:36
 #: task_manager/templates/partials/navbar.html:24
 msgid "Labels"
@@ -171,6 +173,22 @@ msgstr "Метка"
 msgid "Self tasks only"
 msgstr "Только свои задачи"
 
+#: task_manager/tasks/forms.py:14
+msgid "Description"
+msgstr "Описание"
+
+#: task_manager/tasks/forms.py:15
+#: task_manager/tasks/templates/tasks/list.html:24
+#: task_manager/tasks/templates/tasks/show.html:27
+msgid "Status"
+msgstr "Статус"
+
+#: task_manager/tasks/forms.py:16
+#: task_manager/tasks/templates/tasks/list.html:26
+#: task_manager/tasks/templates/tasks/show.html:23
+msgid "Executor"
+msgstr "Исполнитель"
+
 #: task_manager/tasks/templates/tasks/create.html:4
 #: task_manager/tasks/templates/tasks/list.html:7
 #: task_manager/tasks/templates/tasks/show.html:7
@@ -190,23 +208,13 @@ msgstr "Задачи"
 msgid "Show"
 msgstr "Показать"
 
-#: task_manager/tasks/templates/tasks/list.html:24
-#: task_manager/tasks/templates/tasks/show.html:27
-msgid "Status"
-msgstr "Статус"
-
 #: task_manager/tasks/templates/tasks/list.html:25
 #: task_manager/tasks/templates/tasks/show.html:19
 msgid "Author"
 msgstr "Автор"
 
-#: task_manager/tasks/templates/tasks/list.html:26
-#: task_manager/tasks/templates/tasks/show.html:23
-msgid "Executor"
-msgstr "Исполнитель"
-
 #: task_manager/tasks/templates/tasks/show.html:6
-msgid "Task View"
+msgid "Task View "
 msgstr "Просмотр задачи"
 
 #: task_manager/tasks/templates/tasks/update.html:4
