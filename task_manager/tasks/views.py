@@ -3,6 +3,7 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
@@ -69,4 +70,22 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
-    pass
+    model = Task
+    template_name = 'tasks/delete.html'
+    success_url = reverse_lazy('tasks:list')
+    context_object_name = 'task'
+
+    def dispatch(self, request, *args, **kwargs):
+        task = self.get_object()
+        if request.user != task.author:
+            messages.error(request, _('Only the author can delete the task.'))
+            logger.info(f'⚠️  Attempt to delete task {task} '
+                        f'with foreign authorization {format_ip_log(request)}')
+            return redirect(self.success_url)
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        task = self.get_object()
+        logger.info(f'🗑️ Task deleted: {task} {format_ip_log(request)}')
+        messages.success(request, _('Task successfully deleted'))
+        return super().post(request, *args, **kwargs)

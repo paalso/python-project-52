@@ -1,0 +1,15 @@
+<!--task_manager/templates/delete.html-->
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <h1 class="my-4">{% trans "Delete task" %}</h1>
+  <p>
+    {% trans "Are you sure you want to delete " %} <b>{{ task }}</b>?
+  </p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="confirm" value="true">
+    <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
+    <a href="{% url 'tasks:list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+  </form>
+{% endblock %}
