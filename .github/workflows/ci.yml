@@ -19,5 +19,16 @@ jobs:
       - name: Install project dependencies
         run: make sync
 
-      - name: Run linter, djlinter and tests
-        run: make qa
+      - name: Run linters
+        run: make lint
+
+      - name: Run tests with coverage
+        run: |
+          uv run coverage run -m pytest
+          uv run coverage report -m
+          uv run coverage xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
