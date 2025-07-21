@@ -8,4 +8,5 @@ def authenticated_client(client, django_user_model):
         username='testuser', password='testpass'
     )
     client.force_login(user)
+    client.user = user
     return client

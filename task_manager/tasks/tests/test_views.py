@@ -1,6 +1,7 @@
 import pytest
 from django.urls import reverse
 
+from task_manager.tasks.models import Task
 from task_manager.tests.builders import (
     build_label,
     build_status,
@@ -175,3 +176,52 @@ def test_filter_by_multiple_fields(authenticated_client, sample_tasks):
 
     assert set(filtered_tasks) == set(expected_tasks)
     assert len(filtered_tasks) == 2
+
+
+# ----- Create view -----------------------------------------------
+@pytest.mark.django_db
+@pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
+def test_task_create_not_authenticated(method, client, task_data):
+    """Tests that unauthenticated users cannot access create task"""
+    url = reverse('tasks:create')
+    response = getattr(client, method)(url, task_data, follow=False)
+
+    assert response.status_code == 302
+    assert reverse('login') in response.headers['Location']
+    assert not Task.objects.filter(name=task_data["name"]).exists()
+
+
+@pytest.mark.django_db
+def test_task_create_authenticated(authenticated_client):
+    url = reverse('tasks:create')
+
+    get_response = authenticated_client.get(url)
+    assert get_response.status_code == 200
+    assert 'tasks/create.html' in [t.name for t in get_response.templates]
+
+    status = build_status()
+    executor = build_user()
+    label1 = build_label('label1')
+    label2 = build_label('label2')
+    post_data = {
+        'name': 'Task name',
+        'description': 'Some description...',
+        'status': status.id,
+        'labels': [label1.id, label2.id],
+        'executor': executor.id,
+    }
+
+    post_response = authenticated_client.post(url, post_data, follow=True)
+
+    assert_redirected_with_message(
+        post_response,
+        reverse('tasks:list'),
+        'Задача успешно создана'
+    )
+    assert post_response.status_code == 200
+    assert Task.objects.count() == 1
+
+    task = Task.objects.first()
+    assert task.name == 'Task name'
+    assert set(task.labels.all()) == {label1, label2}
+    assert task.author == authenticated_client.user
