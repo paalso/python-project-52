@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-17 13:24+0300\n"
+"POT-Creation-Date: 2025-07-22 10:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,21 +56,21 @@ msgstr ""
 #: task_manager/labels/templates/labels/delete.html:7
 #: task_manager/statuses/templates/statuses/delete.html:7
 #: task_manager/tasks/templates/tasks/delete.html:7
-#: task_manager/users/templates/users/delete.html:6
+#: task_manager/users/templates/users/delete.html:7
 msgid "Are you sure you want to delete "
 msgstr ""
 
 #: task_manager/labels/templates/labels/delete.html:14
 #: task_manager/statuses/templates/statuses/delete.html:14
 #: task_manager/tasks/templates/tasks/delete.html:12
-#: task_manager/users/templates/users/delete.html:10
+#: task_manager/users/templates/users/delete.html:12
 msgid "Yes, delete"
 msgstr ""
 
 #: task_manager/labels/templates/labels/delete.html:15
 #: task_manager/statuses/templates/statuses/delete.html:15
 #: task_manager/tasks/templates/tasks/delete.html:13
-#: task_manager/users/templates/users/delete.html:11
+#: task_manager/users/templates/users/delete.html:13
 msgid "Cancel"
 msgstr ""
 
@@ -115,20 +115,25 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: task_manager/labels/views.py:38
+#: task_manager/labels/views.py:39
 msgid "Label successfully updated"
 msgstr ""
 
-#: task_manager/labels/views.py:53
+#: task_manager/labels/views.py:54
 msgid "Label successfully created"
 msgstr ""
 
-#: task_manager/labels/views.py:70
+#: task_manager/labels/views.py:71
 msgid "Cannot delete label because it is in use by one or more tasks."
 msgstr ""
 
-#: task_manager/labels/views.py:79
+#: task_manager/labels/views.py:80
 msgid "Label successfully deleted"
+msgstr ""
+
+#: task_manager/mixins.py:15 task_manager/users/mixins.py:11
+#: task_manager/users/views.py:127
+msgid "You are not authorized! Please log in."
 msgstr ""
 
 #: task_manager/statuses/templates/statuses/create.html:5
@@ -148,19 +153,19 @@ msgstr ""
 msgid "Edit status"
 msgstr ""
 
-#: task_manager/statuses/views.py:39
+#: task_manager/statuses/views.py:40
 msgid "Status successfully updated"
 msgstr ""
 
-#: task_manager/statuses/views.py:54
+#: task_manager/statuses/views.py:55
 msgid "Status successfully created"
 msgstr ""
 
-#: task_manager/statuses/views.py:70
+#: task_manager/statuses/views.py:71
 msgid "Status successfully deleted"
 msgstr ""
 
-#: task_manager/statuses/views.py:77
+#: task_manager/statuses/views.py:78
 msgid "Cannot delete status because it is in use by one or more tasks."
 msgstr ""
 
@@ -222,19 +227,19 @@ msgstr ""
 msgid "Edit task"
 msgstr "Создать задачу"
 
-#: task_manager/tasks/views.py:51
+#: task_manager/tasks/views.py:52
 msgid "Task successfully created"
 msgstr ""
 
-#: task_manager/tasks/views.py:66
+#: task_manager/tasks/views.py:67
 msgid "Task successfully updated"
 msgstr ""
 
-#: task_manager/tasks/views.py:81
+#: task_manager/tasks/views.py:82
 msgid "Only the author can delete the task."
 msgstr ""
 
-#: task_manager/tasks/views.py:90
+#: task_manager/tasks/views.py:91
 msgid "Task successfully deleted"
 msgstr ""
 
@@ -305,14 +310,10 @@ msgid "Your password is too short. Password must be at least 3 characters."
 msgstr ""
 
 #: task_manager/users/forms.py:52
-msgid "A user with this username already exists."
+msgid "User with this username already exists."
 msgstr ""
 
-#: task_manager/users/mixins.py:12 task_manager/users/views.py:127
-msgid "You are not authorized! Please log in."
-msgstr ""
-
-#: task_manager/users/mixins.py:16
+#: task_manager/users/mixins.py:15
 msgid "You do not have permission to edit another user."
 msgstr ""
 
