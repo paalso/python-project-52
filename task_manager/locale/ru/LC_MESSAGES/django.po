@@ -232,7 +232,7 @@ msgstr "Задача успешно создана"
 
 #: task_manager/tasks/views.py:67
 msgid "Task successfully updated"
-msgstr "Статус успешно изменен"
+msgstr "Задача успешно изменена"
 
 #: task_manager/tasks/views.py:82
 msgid "Only the author can delete the task."

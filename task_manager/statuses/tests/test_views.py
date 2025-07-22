@@ -186,7 +186,7 @@ def test_status_update_empty_name(authenticated_client):
     assert target_status.name == target_status_name
 
 
-# ----- Delete view -----------------------------------------------------
+# ----- Create view -----------------------------------------------------
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_status_create_not_authenticated(

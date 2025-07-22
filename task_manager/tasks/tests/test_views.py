@@ -182,7 +182,7 @@ def test_filter_by_multiple_fields(authenticated_client, sample_tasks):
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
 def test_task_create_not_authenticated(method, client, task_data):
-    """Tests that unauthenticated users cannot access create task"""
+    """Unauthenticated users cannot create a task and should be redirected"""
     url = reverse('tasks:create')
     response = getattr(client, method)(url, task_data, follow=False)
 
@@ -193,6 +193,7 @@ def test_task_create_not_authenticated(method, client, task_data):
 
 @pytest.mark.django_db
 def test_task_create_authenticated(authenticated_client):
+    """Authenticated user can create a task"""
     url = reverse('tasks:create')
 
     get_response = authenticated_client.get(url)
@@ -225,3 +226,130 @@ def test_task_create_authenticated(authenticated_client):
     assert task.name == 'Task name'
     assert set(task.labels.all()) == {label1, label2}
     assert task.author == authenticated_client.user
+
+
+def test_task_create_duplicate_name(authenticated_client, task_data):
+    """Cannot create a task if the name already exists"""
+    Task.objects.create(**task_data)
+    response = authenticated_client.post(reverse('tasks:create'), task_data)
+
+    assert response.status_code == 200
+    assert 'form' in response.context
+
+    form = response.context['form']
+    assert not form.is_valid()
+    assert 'name' in form.errors
+    assert any('уже существует' in e for e in form.errors['name'])
+    assert Task.objects.count() == 1
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('missing_field', ['name', 'status', 'executor'])
+def test_task_create_missing_fields(
+        authenticated_client, task_data, missing_field):
+    """Create should fail if required fields are missing"""
+    task_data.pop(missing_field)
+    response = authenticated_client.post(reverse('tasks:create'), task_data)
+
+    assert response.status_code == 200
+    assert 'form' in response.context
+
+    form = response.context['form']
+    assert not form.is_valid()
+    assert missing_field in form.errors
+    assert not Task.objects.exists()
+
+
+# ----- Update view -----------------------------------------------
+@pytest.mark.django_db
+@pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
+def test_task_update_not_authenticated(method, client, task_data):
+    """Unauthenticated users should be redirected from update view"""
+    task = Task.objects.create(**task_data)
+    url = reverse('tasks:update', args=[task.id])
+    response = getattr(client, method)(url, task_data, follow=False)
+
+    assert response.status_code == 302
+    assert reverse('login') in response.headers['Location']
+
+
+@pytest.mark.django_db
+def test_task_update_authenticated(authenticated_client):
+    """Authenticated user can update a task"""
+    author = authenticated_client.user
+    old_executor = build_user()
+    task = Task.objects.create(
+        name='Old task',
+        description='Old description',
+        status=build_status(),
+        executor=old_executor,
+        author=author
+    )
+    label1 = build_label('Old Label')
+    task.labels.set([label1])
+
+    new_status = build_status('In progress')
+    new_executor = build_user('new-exec')
+    label2 = build_label('New Label')
+
+    update_data = {
+        'name': 'Updated Task',
+        'description': 'Updated description',
+        'status': new_status.id,
+        'executor': new_executor.id,
+        'labels': [label2.id],
+    }
+
+    url = reverse('tasks:update', args=[task.id])
+    response = authenticated_client.post(url, update_data, follow=True)
+
+    assert_redirected_with_message(
+        response,
+        reverse('tasks:list'),
+        'Задача успешно изменена'
+    )
+
+    task.refresh_from_db()
+    assert task.name == 'Updated Task'
+    assert task.description == 'Updated description'
+    assert task.status == new_status
+    assert task.executor == new_executor
+    assert set(task.labels.all()) == {label2}
+
+
+@pytest.mark.django_db
+def test_task_update_duplicate_name(authenticated_client, task_data):
+    """Cannot update task to a name that already exists"""
+    Task.objects.create(**task_data | {'name': 'Existing Task'})
+    task = Task.objects.create(**task_data | {'name': 'Initial Task'})
+
+    url = reverse('tasks:update', args=[task.id])
+    update_data = task_data.copy()
+    update_data['name'] = 'Existing Task'
+
+    response = authenticated_client.post(url, update_data)
+
+    assert response.status_code == 200
+    form = response.context['form']
+    assert not form.is_valid()
+    assert 'name' in form.errors
+    assert any('уже существует' in e for e in form.errors['name'])
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('missing_field', ['name', 'status', 'executor'])
+def test_task_update_missing_fields(
+        authenticated_client, task_data, missing_field):
+    """Update should fail if required fields are missing"""
+    task = Task.objects.create(**task_data)
+
+    update_data = task_data.copy()
+    update_data.pop(missing_field)
+
+    url = reverse('tasks:update', args=[task.id])
+    response = authenticated_client.post(url, update_data)
+
+    assert response.status_code == 200
+    form = response.context['form']
+    assert not form.is_valid()
+    assert missing_field in form.errors

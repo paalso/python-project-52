@@ -49,5 +49,5 @@ class CustomUserUpdateForm(CustomUserForm):
             qs = qs.exclude(pk=self.instance.pk)
         if qs.exists():
             raise forms.ValidationError(
-                _('A user with this username already exists.'))
+                _('User with this username already exists.'))
         return username
