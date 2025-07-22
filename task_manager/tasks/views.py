@@ -77,16 +77,20 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'task'
 
     def dispatch(self, request, *args, **kwargs):
-        task = self.get_object()
-        if request.user != task.author:
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
+        self.object = self.get_object()
+        if self.object.author != request.user:
             messages.error(request, _('Only the author can delete the task.'))
-            logger.warning(f'🚫 Attempt to delete task {task} '
-                        f'with foreign authorization {format_ip_log(request)}')
+            message = (f'🚫 Attempt to delete task {self.object} '
+                       f'with foreign authorization {format_ip_log(request)}')
+            logger.warning(message)
             return redirect(self.success_url)
+
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        task = self.get_object()
-        logger.info(f'🗑️ Task deleted: {task} {format_ip_log(request)}')
+        logger.info(f'🗑️ Task deleted: {self.object} {format_ip_log(request)}')
         messages.success(request, _('Task successfully deleted'))
         return super().post(request, *args, **kwargs)

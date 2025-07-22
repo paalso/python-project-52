@@ -353,3 +353,55 @@ def test_task_update_missing_fields(
     form = response.context['form']
     assert not form.is_valid()
     assert missing_field in form.errors
+
+
+# ----- Delete view -----------------------------------------------
+@pytest.mark.django_db
+@pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
+def test_task_delete_not_authenticated(method, client, task_data):
+    """Unauthenticated users cannot delete a task and should be redirected"""
+    task = Task.objects.create(**task_data)
+    url = reverse('tasks:delete', args=[task.id])
+    response = getattr(client, method)(url, follow=False)
+
+    assert response.status_code == 302
+    assert reverse('login') in response.headers['Location']
+    assert Task.objects.filter(id=task.id).exists()
+
+
+@pytest.mark.django_db
+def test_task_delete_not_author(authenticated_client, task_data):
+    """Users who are not the author should not be able to delete the task"""
+    other_user = build_user('other-user')
+    task = Task.objects.create(**task_data | {'author': other_user})
+    url = reverse('tasks:delete', args=[task.id])
+
+    response = authenticated_client.post(url, follow=True)
+
+    assert_redirected_with_message(
+        response,
+        reverse('tasks:list'),
+        'Задачу может удалить только ее автор'
+    )
+    assert Task.objects.filter(id=task.id).exists()
+
+
+@pytest.mark.django_db
+def test_task_delete_authenticated_author(authenticated_client, task_data):
+    """Author can delete their task"""
+    task_data = task_data | {'author': authenticated_client.user}
+    task = build_task(**task_data)
+
+    url = reverse('tasks:delete', args=[task.id])
+    get_response = authenticated_client.get(url)
+    assert get_response.status_code == 200
+    assert 'tasks/delete.html' in [t.name for t in get_response.templates]
+
+    post_response = authenticated_client.post(url, follow=True)
+
+    assert_redirected_with_message(
+        post_response,
+        reverse('tasks:list'),
+        'Задача успешно удалена'
+    )
+    assert not Task.objects.filter(id=task.id).exists()
