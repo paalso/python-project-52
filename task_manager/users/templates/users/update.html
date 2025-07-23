@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
   <h1 class="my-4">{% trans "Edit user" %}</h1>
-  {% include "users/partials/form.html" with button_text="Update" %}
+  {% include "users/partials/form.html" with button_text=_("Update") %}
 {% endblock %}
 {% block footer %}
   {% include "partials/footer.html" %}

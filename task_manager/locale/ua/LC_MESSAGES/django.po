@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-22 10:51+0300\n"
+"POT-Creation-Date: 2025-07-23 16:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,6 +112,7 @@ msgstr ""
 #: task_manager/statuses/templates/statuses/update.html:6
 #: task_manager/tasks/templates/tasks/show.html:44
 #: task_manager/tasks/templates/tasks/update.html:5
+#: task_manager/users/templates/users/update.html:6
 msgid "Update"
 msgstr ""
 
@@ -235,11 +236,11 @@ msgstr ""
 msgid "Task successfully updated"
 msgstr ""
 
-#: task_manager/tasks/views.py:82
+#: task_manager/tasks/views.py:85
 msgid "Only the author can delete the task."
 msgstr ""
 
-#: task_manager/tasks/views.py:91
+#: task_manager/tasks/views.py:95
 msgid "Task successfully deleted"
 msgstr ""
 
@@ -323,6 +324,10 @@ msgstr ""
 
 #: task_manager/users/templates/users/list.html:13
 msgid "Full name"
+msgstr ""
+
+#: task_manager/users/templates/users/register.html:6
+msgid "Register"
 msgstr ""
 
 #: task_manager/users/templates/users/update.html:5
