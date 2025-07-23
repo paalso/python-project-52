@@ -1,10 +1,8 @@
 # ruff: noqa: E501
 
-import os
 from pathlib import Path
 
-import dj_database_url
-from dotenv import load_dotenv
+from task_manager.env_config import load_env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,27 +10,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-load_dotenv()
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == "True"
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(",")
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-DATABASE_URL = os.getenv('DATABASE_URL')
-
-default_db_config = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
-
-if not default_db_config['ENGINE'].endswith('sqlite3') and not DEBUG:
-    default_db_config['OPTIONS'] = {'sslmode': 'require'}
-
-DATABASES = {
-    'default': default_db_config
-}
+env = load_env(BASE_DIR)
+DEBUG = env['DEBUG']
+SECRET_KEY = env['SECRET_KEY']
+ALLOWED_HOSTS = env['ALLOWED_HOSTS']
+DATABASES = env['DATABASES']
 
 # User model
 AUTH_USER_MODEL = 'users.CustomUser'
