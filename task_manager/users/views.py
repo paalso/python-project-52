@@ -6,7 +6,6 @@ from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LogoutView
 from django.db.models.deletion import ProtectedError
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -70,7 +69,6 @@ class UserUpdateView(
         return self.request.user.pk == self.kwargs['pk']
 
     def form_valid(self, form):
-        super().form_valid(form)
         user = form.instance
         logger.info(
             f'✅ User {user} was successfully updated '
@@ -78,7 +76,7 @@ class UserUpdateView(
         messages.success(
             self.request,
             _('User successfully updated'))
-        return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
 
 
 # TODO: refactor using generic views and mixins
