@@ -45,6 +45,9 @@ showmigrations:  ## Show current migration status
 sqlite:  ## Open SQLite CLI on the project database
 	sqlite3 db.sqlite3
 
+psql:  ## Open psql CLI on the project database
+	psql -U postgres -h localhost -d test -W
+
 # ========================
 # Development Tools
 # ========================
