@@ -26,6 +26,7 @@ dev = [
     "djlint>=1.36.4",
     "ipython>=9.3.0",
     "pytest-django>=4.11.1",
+    "pytest-playwright>=0.7.0",
     "ruff>=0.11.13",
 ]
 
