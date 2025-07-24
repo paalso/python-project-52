@@ -113,7 +113,7 @@ LANGUAGES = [
     ('ua', 'Ukrainian'),
 ]
 
-LOCALE_PATHS = [BASE_DIR / 'locale']
+LOCALE_PATHS = [BASE_DIR / 'task_manager' / 'locale',]
 
 
 # Static files (CSS, JavaScript, Images)
