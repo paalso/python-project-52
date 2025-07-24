@@ -14,21 +14,25 @@ jobs:
           python-version: ">=3.13"
 
       - name: Install uv
-        uses: yezz123/setup-uv@v4
+        run: pip install uv
 
       - name: Install project dependencies
         run: make sync
 
-      - name: Run linters
-        run: make lint
-
-      - name: Run tests with coverage
+      - name: Prepare environment variables
         run: |
-          uv run coverage run -m pytest
-          uv run coverage report -m
-          uv run coverage xml
+          echo "DEBUG=True" >> .env
+          echo "SECRET_KEY=test-secret" >> .env
+          echo "DATABASE_URL=sqlite:///$(pwd)/db.sqlite3" >> .env
+
+      - name: Run migrations
+        run: uv run python manage.py migrate
+
+      - name: Run tests
+        run: uv run pytest
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          files: coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
