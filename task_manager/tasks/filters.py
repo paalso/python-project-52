@@ -5,6 +5,7 @@ from django import forms
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.users.models import CustomUser
+from django.utils.translation import gettext_lazy as _
 
 from .models import Task
 
@@ -12,14 +13,14 @@ from .models import Task
 class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(),
-        label='Статус',
+        label=_('Status'),
         widget=forms.Select(
             attrs={"class": "form-select mr-3 ml-2", "id": "id_status"})
     )
 
     executor = django_filters.ModelChoiceFilter(
         queryset=CustomUser.objects.all(),
-        label='Исполнитель',
+        label=_('Executor'),
         widget=forms.Select(
             attrs={"class": "form-select mr-3 ml-2", "id": "id_executor"})
     )
@@ -27,14 +28,14 @@ class TaskFilter(django_filters.FilterSet):
     label = django_filters.ModelChoiceFilter(
         field_name='labels',
         queryset=Label.objects.all(),
-        label='Метка',
+        label=_('Label'),
         widget=forms.Select(
             attrs={"class": "form-select mr-3 ml-2", "id": "id_label"})
     )
 
     self_tasks = django_filters.BooleanFilter(
         method='filter_only_my_tasks',
-        label='Только свои задачи',
+        label=_('Only my tasks'),
         widget=forms.CheckboxInput(
             attrs={"class": "form-check-input mr-3", "id": "id_self_tasks"})
     )

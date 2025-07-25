@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 14:41+0300\n"
+"POT-Creation-Date: 2025-07-25 20:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,28 +170,28 @@ msgstr ""
 msgid "Cannot delete status because it is in use by one or more tasks."
 msgstr ""
 
-#: task_manager/tasks/filters.py:22
-msgid "Label"
-msgstr "Метка"
-
-#: task_manager/tasks/filters.py:26
-msgid "Self tasks only"
-msgstr "Только свои задачи"
-
-#: task_manager/tasks/forms.py:14
-msgid "Description"
-msgstr ""
-
-#: task_manager/tasks/forms.py:15
+#: task_manager/tasks/filters.py:16 task_manager/tasks/forms.py:15
 #: task_manager/tasks/templates/tasks/list.html:24
 #: task_manager/tasks/templates/tasks/show.html:27
 msgid "Status"
 msgstr ""
 
-#: task_manager/tasks/forms.py:16
+#: task_manager/tasks/filters.py:23 task_manager/tasks/forms.py:16
 #: task_manager/tasks/templates/tasks/list.html:26
 #: task_manager/tasks/templates/tasks/show.html:23
 msgid "Executor"
+msgstr ""
+
+#: task_manager/tasks/filters.py:31
+msgid "Label"
+msgstr "Метка"
+
+#: task_manager/tasks/filters.py:38
+msgid "Only my tasks"
+msgstr ""
+
+#: task_manager/tasks/forms.py:14
+msgid "Description"
 msgstr ""
 
 #: task_manager/tasks/templates/tasks/create.html:4
@@ -361,3 +361,6 @@ msgstr ""
 #: task_manager/views.py:29
 msgid "You are logged in."
 msgstr ""
+
+#~ msgid "Self tasks only"
+#~ msgstr "Только свои задачи"
