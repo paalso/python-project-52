@@ -8,4 +8,4 @@ class CustomUser(AbstractUser):
         return fn if fn else self.username
 
     def __str__(self):
-        return f'user {self.id} - {self.username}, full name {self.full_name}'
+        return self.full_name

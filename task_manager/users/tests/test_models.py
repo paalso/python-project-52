@@ -25,9 +25,9 @@ def test_custom_user_name_unique(user_data):
 @pytest.mark.parametrize(
     'pk, expected',
     [
-        (1, 'user 1 - admin, full name admin'),
-        (2, 'user 2 - mikeward, full name Mike Ward'),
-        (3, 'user 3 - socrates, full name Socrates'),
+        (1, 'admin'),
+        (2, 'Mike Ward'),
+        (3, 'Socrates'),
     ],
     ids=['admin', 'mikeward', 'socrates']
 )
