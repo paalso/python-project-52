@@ -89,6 +89,9 @@ cov:  ## Run tests with coverage report
 test:  ## Run tests (optionally: NAME=tests/test_users.py or -k keyword)
 	@uv run pytest -v $(NAME)
 
+e2e-test:  ## Run e2e tests (optionally: NAME=tests/test_users.py or -k keyword)
+	@uv run pytest task_manager/tests/e2e --browser=chromium --base-url=http://localhost:8080 -v $(NAME)
+
 test-nodeid:  ## Run single test by nodeid: NODEID=tests/test_users.py::test_login
 	@uv run pytest -v $(NODEID)
 
