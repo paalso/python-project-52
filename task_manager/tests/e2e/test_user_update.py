@@ -1,7 +1,9 @@
 import random
 import re
-import pytest
 from urllib.parse import urljoin
+
+import pytest
+
 
 def rand_int():
     return random.randint(1, 1000)
@@ -10,7 +12,7 @@ def rand_int():
 @pytest.mark.playwright
 def test_update_user(page, base_url):
     page.goto(urljoin(base_url, "/login/"))
-    #Взял существующего в БД юзера
+    # Взял существующего в БД юзера
     page.fill('input[name="username"]', 'plato')
     page.fill('input[name="password"]', 'qwe')
     page.click('text="Войти"')
