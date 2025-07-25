@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-24 16:57+0300\n"
+"POT-Creation-Date: 2025-07-25 14:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,7 +133,7 @@ msgid "Label successfully deleted"
 msgstr ""
 
 #: task_manager/mixins.py:15 task_manager/users/mixins.py:11
-#: task_manager/users/views.py:127
+#: task_manager/users/views.py:126
 msgid "You are not authorized! Please log in."
 msgstr ""
 
@@ -342,19 +342,19 @@ msgstr ""
 msgid "You have successfully logged out of the system"
 msgstr ""
 
-#: task_manager/users/views.py:79
+#: task_manager/users/views.py:78
 msgid "User successfully updated"
 msgstr ""
 
-#: task_manager/users/views.py:108
+#: task_manager/users/views.py:107
 msgid "User was successfully deleted."
 msgstr ""
 
-#: task_manager/users/views.py:114
+#: task_manager/users/views.py:113
 msgid "Cannot delete user because it is in use by one or more tasks."
 msgstr ""
 
-#: task_manager/users/views.py:132
+#: task_manager/users/views.py:131
 msgid "You do not have permission to modify another user."
 msgstr ""
 
