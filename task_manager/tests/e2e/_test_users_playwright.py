@@ -3,6 +3,23 @@ from urllib.parse import urljoin
 
 import pytest
 from django.contrib.auth import get_user_model
+import uuid
+
+
+@pytest.fixture
+def register_user(page, base_url):
+    def _register(first_name="E2E", last_name="User"):
+        username = f"user_{uuid.uuid4().hex[:8]}"
+        page.goto(urljoin(base_url, "/users/create/"))
+
+        page.fill('input[name="first_name"]', first_name)
+        page.fill('input[name="last_name"]', last_name)
+        page.fill('input[name="username"]', username)
+        page.fill('input[name="password1"]', "strongpass123")
+        page.fill('input[name="password2"]', "strongpass123")
+        page.click('text="Зарегистрировать"')
+        return username, f"{first_name} {last_name}"
+    return _register
 
 DATA = {
     "users": {
@@ -48,7 +65,6 @@ def test_update_user(page, base_url):
 
     page.click('text="Пользователи"')
 
-    # Найдём строку с пользователем
     full_name = (f"{DATA['users']['existing']['first_name']} "
                  f"{DATA['users']['existing']['last_name']}")
     row_selector = f"css=tr:has-text('{full_name}')"
