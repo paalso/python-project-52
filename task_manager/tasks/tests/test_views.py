@@ -117,11 +117,13 @@ def test_filter_by_status(authenticated_client, sample_tasks):
 @pytest.mark.django_db
 def test_filter_by_executor(authenticated_client, sample_tasks):
     user = sample_tasks['executors'][0]  # executor1
-    url = reverse('tasks:list') + f'?status=&executor={user.pk}&label=1'
+    url = reverse('tasks:list') + f'?status=&executor={user.pk}&label='
     response = authenticated_client.get(url)
     filtered_tasks = response.context['tasks']
     expected_tasks = [t for t in sample_tasks['tasks'] if t.executor == user]
 
+    print(set(filtered_tasks))
+    print(set(expected_tasks))
     assert set(filtered_tasks) == set(expected_tasks)
     assert len(filtered_tasks) == 2
 

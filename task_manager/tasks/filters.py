@@ -1,7 +1,6 @@
 # task_manager/tasks/filters.py
 import django_filters
 from django import forms
-from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
@@ -12,19 +11,32 @@ from .models import Task
 
 class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
-        queryset=Status.objects.all(), label='Статус')
+        queryset=Status.objects.all(),
+        label='Статус',
+        widget=forms.Select(
+            attrs={"class": "form-select mr-3 ml-2", "id": "id_status"})
+    )
 
     executor = django_filters.ModelChoiceFilter(
-        queryset=CustomUser.objects.all(), label='Исполнитель')
-    label = django_filters.ModelChoiceFilter(  # custom name
+        queryset=CustomUser.objects.all(),
+        label='Исполнитель',
+        widget=forms.Select(
+            attrs={"class": "form-select mr-3 ml-2", "id": "id_executor"})
+    )
+
+    label = django_filters.ModelChoiceFilter(
         field_name='labels',
         queryset=Label.objects.all(),
-        label=_('Label')
+        label='Метка',
+        widget=forms.Select(
+            attrs={"class": "form-select mr-3 ml-2", "id": "id_label"})
     )
-    self_tasks = django_filters.BooleanFilter(  # custom name
+
+    self_tasks = django_filters.BooleanFilter(
         method='filter_only_my_tasks',
-        label=_('Self tasks only'),
-        widget=forms.CheckboxInput()
+        label='Только свои задачи',
+        widget=forms.CheckboxInput(
+            attrs={"class": "form-check-input mr-3", "id": "id_self_tasks"})
     )
 
     def filter_only_my_tasks(self, queryset, name, value):
