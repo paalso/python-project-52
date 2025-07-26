@@ -22,6 +22,7 @@ def sample_labels():
 def test_labels_list_requires_auth(client):
     response = client.get(reverse('labels:list'), follow=False)
     assert response.status_code == 302
+    # import pdb; pdb.set_trace()
     assert reverse('login') in response.url
 
     response = client.get(reverse('statuses:list'), follow=True)

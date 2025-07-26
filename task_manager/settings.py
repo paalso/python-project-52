@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 from task_manager.env_config import load_env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -9,6 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ru', 'Russian'),
+]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -21,7 +28,7 @@ DATABASES = env['DATABASES']
 # User model
 AUTH_USER_MODEL = 'users.CustomUser'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -54,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -98,9 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
-LANGUAGE_CODE = 'ru'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -110,8 +115,9 @@ USE_TZ = True
 LANGUAGES = [
     ('en', 'English'),
     ('ru', 'Russian'),
-    ('ua', 'Ukrainian'),
 ]
+
+LANGUAGE_CODE = 'ru'
 
 LOCALE_PATHS = [BASE_DIR / 'task_manager' / 'locale',]
 

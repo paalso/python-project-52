@@ -6,7 +6,10 @@
       <h1 class="display-4">{% trans "Welcome to the Task manager" %}!</h1>
       <p class="lead">{% trans "Assign tasks and stay productive" %}!</p>
       <hr>
-      <a class="btn btn-primary btn-lg" href="{% url 'users:create' %}">{% trans "Get started" %}</a>
+      <a class="btn btn-primary btn-lg"
+         href="{% url request.user.is_authenticated|yesno:'tasks:list,login' %}">
+        {% trans "Get started" %}
+      </a>
     </div>
   </div>
 {% endblock %}

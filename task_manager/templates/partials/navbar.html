@@ -49,6 +49,24 @@
           <a class="nav-link" href="/admin/">{% trans "Admin panel" %}</a>
         </div>
       {% endif %}
+
+    <!-- Language switch-->
+      <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        <select name="language"
+                onchange="this.form.submit()"
+                class="form-select form-select-sm w-auto d-inline"
+        >
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_available_languages as LANGUAGES %}
+          {% for lang in LANGUAGES %}
+            <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+              {{ lang.0 }}
+            </option>
+          {% endfor %}
+        </select>
+      </form>
     </div>
   </div>
 </nav>

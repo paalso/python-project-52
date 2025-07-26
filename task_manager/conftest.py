@@ -1,5 +1,5 @@
-
 import pytest
+from django.utils import translation
 
 
 @pytest.fixture
@@ -10,3 +10,10 @@ def authenticated_client(client, django_user_model):
     client.force_login(user)
     client.user = user
     return client
+
+
+@pytest.fixture(autouse=True)
+def activate_ru_locale():
+    translation.activate('ru')
+    yield
+    translation.deactivate()
