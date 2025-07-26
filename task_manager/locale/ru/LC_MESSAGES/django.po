@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 20:44+0300\n"
+"POT-Creation-Date: 2025-07-26 15:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -249,16 +249,16 @@ msgid "Task manager"
 msgstr "Менеджер задач"
 
 #: task_manager/templates/index.html:7
-msgid "Hello from Hexlet"
-msgstr "Привет от Хекслета"
+msgid "Welcome to the Task manager"
+msgstr "Добро пожаловать в Менеджер задач"
 
 #: task_manager/templates/index.html:8
-msgid "Practical programming courses"
-msgstr "Практические курсы по программированию"
+msgid "Assign tasks and stay productive"
+msgstr "Распределяй задачи и рставайся продуктивным"
 
 #: task_manager/templates/index.html:11
-msgid "Learn more"
-msgstr "Узнать больше"
+msgid "Get started"
+msgstr "Приступить"
 
 #: task_manager/templates/login.html:5
 #: task_manager/templates/partials/navbar.html:40
@@ -359,6 +359,15 @@ msgstr "У вас нет прав для изменения другого по�
 #: task_manager/views.py:29
 msgid "You are logged in."
 msgstr "Вы залогинены"
+
+#~ msgid "Hello from Hexlet"
+#~ msgstr "Привет от Хекслета"
+
+#~ msgid "Practical programming courses"
+#~ msgstr "Практические курсы по программированию"
+
+#~ msgid "Learn more"
+#~ msgstr "Узнать больше"
 
 #~ msgid "Self tasks only"
 #~ msgstr "Только свои задачи"

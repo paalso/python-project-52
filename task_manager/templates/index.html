@@ -4,11 +4,11 @@
 {% block content %}
   <div class="card mt-3">
     <div class="card-body p-5 bg-light">
-      <h1 class="display-4">{% trans "Hello from Hexlet" %}!</h1>
-      <p class="lead">{% trans "Practical programming courses" %}</p>
+      <h1 class="display-4">{% trans "Welcome to the Task manager" %}!</h1>
+      <p class="lead">{% trans "Assign tasks and stay productive" %}!</p>
       <hr>
       <!-- TODO: Убрать эту ссылку и вообще поменять содержимое-->
-      <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% trans "Learn more" %}</a>
+      <a class="btn btn-primary btn-lg" href="{% url 'users:create' %}">{% trans "Get started" %}</a>
     </div>
   </div>
 {% endblock %}
