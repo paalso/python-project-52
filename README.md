@@ -6,7 +6,7 @@
 ### [Менеджер задач (Task Manager)](https://ru.hexlet.io/programs/python/projects/52)
 
 ## 📚 About
-Task Manager is a [Redmine](https://www.redmine.org/)-like system built with Django.
+Task Manager is a lightweight [Redmine](https://www.redmine.org/)-like system built with Django.
 It uses Django Templates for server-side rendering and Bootstrap 5 for responsive design.
 
 ## Features

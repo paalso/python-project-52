@@ -1,4 +1,3 @@
-<!--task_manager/templates/index.html-->
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
@@ -7,7 +6,6 @@
       <h1 class="display-4">{% trans "Welcome to the Task manager" %}!</h1>
       <p class="lead">{% trans "Assign tasks and stay productive" %}!</p>
       <hr>
-      <!-- TODO: Убрать эту ссылку и вообще поменять содержимое-->
       <a class="btn btn-primary btn-lg" href="{% url 'users:create' %}">{% trans "Get started" %}</a>
     </div>
   </div>

@@ -1,4 +1,3 @@
-# task_manager/tasks/views.py
 import logging
 
 from django.contrib import messages

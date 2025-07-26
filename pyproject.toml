@@ -1,7 +1,10 @@
 [project]
 name = "hexlet-code"
 version = "0.1.0"
-description = "Task manager"
+description = """
+Task manager: a lightweight Redmine-like system for assigning, managing,
+ and filtering tasks. Built with Django and Bootstrap 5.
+ """
 authors = [
     { name = "paalso", email = "40a.pvl@gmail.com" },
 ]
