@@ -3,11 +3,12 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.i18n import set_language
 
-from task_manager import env_debug_view, views
+from task_manager import views
+from task_manager.debug_view import DebugInfoView
 
 urlpatterns = [
     path('set-language/', set_language, name='set_language'),
-    path('__debug__/info/', env_debug_view.get_debug_info, name='debug-env'),
+    path('__debug__/info/', DebugInfoView.as_view(), name='debug-env')
 ]
 
 urlpatterns += i18n_patterns(
