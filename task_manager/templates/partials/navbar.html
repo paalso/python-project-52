@@ -29,7 +29,11 @@
           </li>
           <!-- TODO: May prevent from passing the final tests. Check!-->
           <!-- TODO: And generally it's not the best layout - redo: e.g. move to the right of the navbar -->
-          <li class="nav-item d-flex align-items-center px-2 text-muted small">👤 {{ user.username }}</li>
+          <li class="nav-item d-flex align-items-center px-2 text-muted small">
+            <div class="me-1">👤</div>
+            <a href="{% url 'users:update' user.id %}" class="text-decoration-none">{{ user.username }}
+            </a>
+          </li>
           <li class="nav-item">
             <form method="post" action="{% url 'users:logout' %}">
               {% csrf_token %}
