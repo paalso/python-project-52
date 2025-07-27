@@ -61,7 +61,7 @@ def detect_hosting_provider(hostname: str) -> dict[str, str] | None:
     }
 
     for domain, info in known_providers.items():
-        if hostname.rsplit('/').endswith(domain):
+        if hostname.rstrip('/').endswith(domain):
             return info
 
     return None
