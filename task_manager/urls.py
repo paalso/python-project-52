@@ -7,7 +7,7 @@ from task_manager import env_debug_view, views
 
 urlpatterns = [
     path('set-language/', set_language, name='set_language'),
-    path('env/', env_debug_view.EnvDebugView.as_view(), name='debug-env'),
+    path('__debug__/info/', env_debug_view.get_debug_info, name='debug-env'),
 ]
 
 urlpatterns += i18n_patterns(
