@@ -46,6 +46,32 @@ task_manager/
 └── settings.py    # Project configuration
 ```
 
+## 🛠️ Installation for Developers
+To run the app locally in a development environment:
+
+```bash
+# Clone the repository
+git clone https://github.com/paalso/python-project-83.git
+cd python-project-83
+
+# Install Python dependencies inside a virtual environment
+make install
+
+# Copy example environment and edit it if needed
+cp .env_copy .env
+
+# Run the app with hot reload (for development)
+make dev
+```
+### 🔧 Notes:
+You can edit `.env` to change database connection, debug mode, etc.
+
+`make install` creates a virtual environment and installs dependencies using `uv`.
+
+`make dev` runs the app with uvicorn in development mode (auto-reload enabled).
+
+Ensure PostgreSQL is running locally or set up a remote `DATABASE_URL` in `.env`.
+
 ## 🚀 Demo
 Live demo deployed on PythonAnywhere:
 👉 [https://paalso.pythonanywhere.com/](https://paalso.pythonanywhere.com/)
