@@ -1,5 +1,5 @@
 from task_manager.utils.debug import (
-    detect_hosting_provider,  # путь к твоей функции
+    detect_hosting_provider,
 )
 
 

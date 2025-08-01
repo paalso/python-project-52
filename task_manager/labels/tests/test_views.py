@@ -53,7 +53,6 @@ def test_labels_list_view(authenticated_client, sample_labels):
 # ----- Delete view ----------------------------------------------------
 # TODO: (optional) Add edge-case tests:
 # - Attempt to delete a label with a non-existent ID (e.g., pk=99999)
-# This will help to further cover possible exceptions and edge cases.
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])
@@ -115,7 +114,6 @@ def test_label_delete_linked_to_tasks(authenticated_client):
 # TODO: (optional) Add edge-case tests:
 # - Attempt to update a label with a name exceeding the maximum allowed length
 # (specified in the model)
-# This will help to further cover possible exceptions and edge cases.
 
 @pytest.mark.django_db
 @pytest.mark.parametrize('method', ['get', 'post'], ids=['GET', 'POST'])

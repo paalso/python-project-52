@@ -12,7 +12,6 @@ def rand_int():
 @pytest.mark.playwright
 def test_update_user(page, base_url):
     page.goto(urljoin(base_url, "/login/"))
-    # Взял существующего в БД юзера
     page.fill('input[name="username"]', 'plato')
     page.fill('input[name="password"]', 'qwe')
     page.click('text="Войти"')
